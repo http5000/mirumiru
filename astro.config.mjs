@@ -10,6 +10,7 @@ const indexable = process.env.SITE_INDEXABLE === 'true'
  * un X-Robots-Tag global — la preview *.pages.dev reste hors des moteurs.
  * Pour lever le verrou : SITE_INDEXABLE=true dans Cloudflare Pages.
  */
+/** @returns {import('astro').AstroIntegration} */
 function verrouIndexation() {
   return {
     name: 'mirumiru:verrou-indexation',
