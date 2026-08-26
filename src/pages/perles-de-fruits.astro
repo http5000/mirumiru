@@ -18,8 +18,13 @@ import { parfums } from '../data/produits'
 
   <section class="section">
     <div class="wrap">
-      <div class="grid grid--3">
+      <div class="grid grid--parfums">
         {parfums.map((p) => <ParfumCarte parfum={p} detaille />)}
+        <a href="/contact" class="tuile-cta reveal">
+          <span class="tuile-cta__pastilles" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="tuile-cta__titre">Un parfum qui n’est pas là&nbsp;?</span>
+          <span class="tuile-cta__plus">Parlez-nous de votre carte →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -81,6 +86,22 @@ import { parfums } from '../data/produits'
   .specs dd { margin: 0; font-size: 1.02rem; color: var(--ink); }
 
   .texte-long { font-size: 1.03rem; color: var(--ink-2); }
+
+  .tuile-cta {
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--ink); color: var(--cream); text-decoration: none;
+    border-radius: var(--radius-lg); padding: 1.8rem 1.6rem; min-height: 220px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .tuile-cta:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); color: var(--cream); }
+  .tuile-cta__pastilles { display: flex; gap: .45rem; margin-bottom: 1.1rem; }
+  .tuile-cta__pastilles i { width: 13px; height: 13px; border-radius: 50%; }
+  .tuile-cta__pastilles i:nth-child(1) { background: var(--peche); }
+  .tuile-cta__pastilles i:nth-child(2) { background: var(--passion); }
+  .tuile-cta__pastilles i:nth-child(3) { background: var(--framboise); }
+  .tuile-cta__pastilles i:nth-child(4) { background: var(--mint); }
+  .tuile-cta__titre { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.2; margin-bottom: .6rem; }
+  .tuile-cta__plus { font-size: .88rem; color: var(--mango); }
   .note { font-size: .93rem; color: var(--ink-3); border-left: 3px solid var(--line); padding-left: 1rem; }
   .centre { display: flex; justify-content: center; margin-top: 2.5rem; }
 </style>

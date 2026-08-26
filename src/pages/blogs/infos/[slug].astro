@@ -34,7 +34,7 @@ const schema = {
   publisher: {
     '@type': 'Organization',
     name: 'MiruMiru',
-    logo: { '@type': 'ImageObject', url: `${site.url}/img/brand/logo-carre.jpg` },
+    logo: { '@type': 'ImageObject', url: `${site.url}/img/brand/icone-512.png` },
   },
   mainEntityOfPage: `${site.url}/blogs/infos/${article.id}`,
   ...(article.data.cover ? { image: `${site.url}${article.data.cover}` } : {}),

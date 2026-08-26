@@ -24,7 +24,7 @@ const { parfum, detaille = false } = Astro.props
   .parfum:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: var(--teinte); }
   .parfum__visuel {
     position: relative; aspect-ratio: 1; overflow: hidden;
-    background: color-mix(in srgb, var(--teinte) 9%, var(--paper));
+    background: var(--paper);
   }
   .parfum__visuel::after {
     content: ''; position: absolute; inset: auto -20% -45% -20%; height: 70%;

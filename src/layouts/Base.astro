@@ -3,6 +3,7 @@ import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import { site } from '../data/site'
+import { indexable } from '../data/config'
 
 interface Props {
   title: string
@@ -12,7 +13,7 @@ interface Props {
   noindex?: boolean
 }
 
-const { title, description, image = '/img/brand/logo-carre.jpg', type = 'website', noindex = false } = Astro.props
+const { title, description, image = '/img/brand/og.jpg', type = 'website', noindex = false } = Astro.props
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site ?? site.url).href
 const ogImage = new URL(image, Astro.site ?? site.url).href
 const titreComplet = title.includes(site.nom) ? title : `${title} — ${site.nom}`
@@ -26,10 +27,12 @@ const titreComplet = title.includes(site.nom) ? title : `${title} — ${site.nom
     <title>{titreComplet}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!indexable
+      ? <meta name="robots" content="noindex, nofollow" />
+      : noindex && <meta name="robots" content="noindex, follow" />}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/img/brand/logo-carre.jpg" />
+    <link rel="apple-touch-icon" href="/img/brand/icone-512.png" />
 
     <link rel="preload" href="/fonts/fredoka-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />

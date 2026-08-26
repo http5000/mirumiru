@@ -16,7 +16,7 @@ const schema = {
   '@type': 'Organization',
   name: 'MiruMiru',
   url: site.url,
-  logo: `${site.url}/img/brand/logo-carre.jpg`,
+  logo: `${site.url}/img/brand/icone-512.png`,
   description: 'Marque française de perles de fruits (popping boba) et de consommables pour bubble tea.',
   telephone: site.tel,
   email: site.email,
@@ -126,12 +126,15 @@ const schema = {
         </p>
       </div>
 
-      <div class="grid grid--4 parfums">
+      <div class="grid grid--parfums">
         {parfums.map((p) => <ParfumCarte parfum={p} />)}
-      </div>
-
-      <div class="centre">
-        <a href="/perles-de-fruits" class="btn btn--primary">Voir la gamme en détail</a>
+        <a href="/perles-de-fruits" class="tuile-cta reveal">
+          <span class="tuile-cta__pastilles" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </span>
+          <span class="tuile-cta__titre">Les 7 parfums en détail</span>
+          <span class="tuile-cta__plus">Composition, accords, conditionnement →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -324,12 +327,29 @@ const schema = {
 
   /* ---- consommables ---- */
   .conso { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; }
-  .conso__img { aspect-ratio: 4 / 3; margin: -1.6rem -1.6rem 1.2rem; background: var(--cream); overflow: hidden; }
-  .conso__img img { width: 100%; height: 100%; object-fit: contain; padding: 10%; }
+  .conso__img { aspect-ratio: 1; margin: -1.6rem -1.6rem 1.2rem; background: var(--cream); overflow: hidden; }
+  .conso__img img { width: 100%; height: 100%; object-fit: cover; }
   .conso h3 { font-size: 1.15rem; margin-bottom: .5rem; }
   .conso p { font-size: .93rem; color: var(--ink-2); margin: 0; }
 
   .texte-long { font-size: 1.05rem; color: var(--ink-2); }
+
+  /* tuile d'appel en fin de grille des parfums */
+  .tuile-cta {
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--ink); color: var(--cream); text-decoration: none;
+    border-radius: var(--radius-lg); padding: 1.8rem 1.6rem;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .tuile-cta:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); color: var(--cream); }
+  .tuile-cta__pastilles { display: flex; gap: .45rem; margin-bottom: 1.1rem; }
+  .tuile-cta__pastilles i { width: 13px; height: 13px; border-radius: 50%; }
+  .tuile-cta__pastilles i:nth-child(1) { background: var(--fraise); }
+  .tuile-cta__pastilles i:nth-child(2) { background: var(--mangue); }
+  .tuile-cta__pastilles i:nth-child(3) { background: var(--pomme); }
+  .tuile-cta__pastilles i:nth-child(4) { background: var(--litchi); }
+  .tuile-cta__titre { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.2; margin-bottom: .6rem; }
+  .tuile-cta__plus { font-size: .88rem; color: var(--mango); }
 
   /* ---- CTA final ---- */
   .cta { background: linear-gradient(135deg, var(--rose) 0%, #FF8FA8 55%, var(--mango) 100%); padding: clamp(3.5rem, 8vw, 6rem) 0; }
