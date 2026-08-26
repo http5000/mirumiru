@@ -1,0 +1,128 @@
+---
+import { getCollection, render } from 'astro:content'
+import Base from '../../../layouts/Base.astro'
+import ArticleCarte from '../../../components/ArticleCarte.astro'
+import { site } from '../../../data/site'
+
+export async function getStaticPaths() {
+  const articles = await getCollection('blog')
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }))
+}
+
+const { article } = Astro.props
+const { Content } = await render(article)
+
+const tous = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+)
+const suggestions = tous.filter((a) => a.id !== article.id).slice(0, 3)
+
+const dateISO = article.data.pubDate.toISOString()
+const dateFr = article.data.pubDate.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: article.data.title,
+  description: article.data.description,
+  datePublished: dateISO,
+  author: { '@type': 'Person', name: article.data.author },
+  publisher: {
+    '@type': 'Organization',
+    name: 'MiruMiru',
+    logo: { '@type': 'ImageObject', url: `${site.url}/img/brand/logo-carre.jpg` },
+  },
+  mainEntityOfPage: `${site.url}/blogs/infos/${article.id}`,
+  ...(article.data.cover ? { image: `${site.url}${article.data.cover}` } : {}),
+}
+---
+
+<Base
+  title={article.data.title}
+  description={article.data.description}
+  image={article.data.cover}
+  type="article"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <article>
+    <header class="tete-art">
+      <div class="wrap-narrow">
+        <a href="/blog" class="retour">← Le journal</a>
+        <h1>{article.data.title}</h1>
+        <p class="meta">
+          <time datetime={dateISO}>{dateFr}</time>
+          <span aria-hidden="true">·</span>
+          <span>{article.data.author}</span>
+        </p>
+      </div>
+    </header>
+
+    {article.data.cover && (
+      <div class="wrap couverture">
+        <img src={article.data.cover} alt="" width="1200" height="700" fetchpriority="high" />
+      </div>
+    )}
+
+    <div class="wrap-narrow corps">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <section class="section section--cream2">
+    <div class="wrap">
+      <h2 class="titre-suite">À lire aussi</h2>
+      <div class="grid grid--3">
+        {suggestions.map((a) => (
+          <ArticleCarte
+            href={`/blogs/infos/${a.id}`}
+            titre={a.data.title}
+            description={a.data.description}
+            date={a.data.pubDate.toISOString().slice(0, 10)}
+            image={a.data.cover}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="wrap-narrow bandeau-cta">
+      <p class="eyebrow">MiruMiru</p>
+      <h2>Des perles de fruits pour votre carte</h2>
+      <p class="lead">
+        Sept parfums de popping boba, fabriqués et importés par une marque
+        française. Disponibles pour les professionnels chez Metro.
+      </p>
+      <div class="actions">
+        <a href="/perles-de-fruits" class="btn btn--primary">Voir la gamme</a>
+        <a href="/contact" class="btn btn--ghost">Nous écrire</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tete-art { padding: clamp(2.5rem, 5vw, 4rem) 0 1.8rem; }
+  .retour { font-family: var(--font-display); font-weight: 600; font-size: .9rem; color: var(--rose-deep); text-decoration: none; display: inline-block; margin-bottom: 1.4rem; }
+  .retour:hover { text-decoration: underline; }
+  .tete-art h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); }
+  .meta { display: flex; gap: .6rem; align-items: center; font-size: .9rem; color: var(--ink-3); margin: 0; }
+
+  .couverture { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .couverture img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+
+  .corps { padding-bottom: clamp(3rem, 6vw, 5rem); }
+
+  .titre-suite { text-align: center; margin-bottom: 2.4rem; }
+
+  .bandeau-cta { text-align: center; }
+  .bandeau-cta .lead { margin-inline: auto; }
+  .actions { display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; margin-top: 2rem; }
+</style>

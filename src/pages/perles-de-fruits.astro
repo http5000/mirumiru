@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import ParfumCarte from '../components/ParfumCarte.astro'
+import { parfums } from '../data/produits'
+---
+
+<Base
+  title="Perles de fruits — les 7 parfums MiruMiru"
+  description="Popping boba MiruMiru : fraise, mangue, litchi, fruit de la passion, pomme verte, pêche et framboise. Perles de jus de fruits pour bubble tea, en seau de 3,1 kg."
+  image="/img/produits/perles-fraise.jpg"
+>
+  <EnteteePage
+    eyebrow="La gamme"
+    titre="Sept parfums de perles de fruits"
+    intro="Le popping boba MiruMiru est fabriqué à partir de jus de fruits. Une membrane fine, un cœur liquide, et une couleur qui vient du fruit lui-même. Voici la gamme complète, avec les accords qui fonctionnent le mieux en boutique."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {parfums.map((p) => <ParfumCarte parfum={p} detaille />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap fiche">
+      <div class="reveal">
+        <p class="eyebrow">Fiche produit</p>
+        <h2>Ce qu’il y a dans le seau</h2>
+        <p class="lead">
+          Un conditionnement unique pour toute la gamme : le seau professionnel
+          de 3,1 kg, livré par carton de quatre.
+        </p>
+      </div>
+
+      <dl class="specs reveal">
+        <div><dt>Poids net</dt><dd>3,1 kg par seau</dd></div>
+        <div><dt>Net égoutté</dt><dd>2,2 kg</dd></div>
+        <div><dt>Carton</dt><dd>4 seaux</dd></div>
+        <div><dt>Avant ouverture</dt><dd>0 à 35 °C, à l’abri de la lumière</dd></div>
+        <div><dt>Après ouverture</dt><dd>1 mois au frais</dd></div>
+        <div><dt>Allergènes</dt><dd>Sans gluten</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--cream2">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Composition</p>
+      <h2>Ce que contient une perle</h2>
+      <div class="texte-long">
+        <p>
+          Eau, sucre, amidon modifié de maïs, épaississant (xanthane), gélifiant
+          (alginate de sodium), raffermissants (lactate de calcium, chlorure de
+          calcium), acidifiant (acide citrique), conservateurs (sorbate de
+          potassium, benzoate de sodium), concentrés de fruits et de plantes pour
+          la couleur, arôme.
+        </p>
+        <p class="note">
+          La composition exacte et les allergènes varient légèrement d’un parfum
+          à l’autre. Les fiches techniques et les étiquetages complets sont
+          disponibles sur demande — écrivez-nous, on vous les envoie.
+        </p>
+      </div>
+      <div class="centre">
+        <a href="/contact" class="btn btn--primary">Demander les fiches techniques</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .fiche { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 880px) { .fiche { grid-template-columns: 1fr; } }
+
+  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .specs > div { background: var(--paper); padding: 1.3rem 1.4rem; }
+  .specs dt { font-family: var(--font-display); font-weight: 600; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: .35rem; }
+  .specs dd { margin: 0; font-size: 1.02rem; color: var(--ink); }
+
+  .texte-long { font-size: 1.03rem; color: var(--ink-2); }
+  .note { font-size: .93rem; color: var(--ink-3); border-left: 3px solid var(--line); padding-left: 1rem; }
+  .centre { display: flex; justify-content: center; margin-top: 2.5rem; }
+</style>

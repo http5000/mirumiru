@@ -1,0 +1,27 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props
+const boucle = [...items, ...items]
+---
+<div class="bandeau" aria-hidden="true">
+  <div class="bandeau__piste">
+    {boucle.map((t) => (
+      <span class="bandeau__item">{t}<span class="bandeau__perle"></span></span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .bandeau { background: var(--ink); color: var(--cream); overflow: hidden; padding: .85rem 0; }
+  .bandeau__piste { display: flex; width: max-content; animation: defile 38s linear infinite; }
+  .bandeau__item {
+    display: inline-flex; align-items: center; gap: 1.6rem;
+    font-family: var(--font-display); font-weight: 500; font-size: 1.02rem;
+    letter-spacing: .02em; padding-right: 1.6rem; white-space: nowrap;
+  }
+  .bandeau__perle { width: 9px; height: 9px; border-radius: 50%; background: var(--rose); }
+  .bandeau__item:nth-child(3n) .bandeau__perle { background: var(--mango); }
+  .bandeau__item:nth-child(3n+1) .bandeau__perle { background: var(--mint); }
+  @keyframes defile { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .bandeau__piste { animation: none; } }
+</style>

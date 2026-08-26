@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { site } from '../data/site'
+
+const sujets = [
+  'Référencement / distribution',
+  'Demande export',
+  'Question sur un produit',
+  'Fiche technique / étiquetage',
+  'Presse & partenariats',
+  'Autre',
+]
+---
+
+<Base
+  title="Contact"
+  description="Une question sur les perles de fruits MiruMiru, une demande de distribution ou d’export ? Écrivez-nous, nous répondons sous 24 h ouvrées."
+>
+  <EnteteePage
+    eyebrow="Contact"
+    titre="Parlons de votre projet"
+    intro="Distribution, export, fiche technique ou simple curiosité : écrivez-nous. Nous répondons nous-mêmes, sous 24 heures ouvrées."
+  />
+
+  <section class="section">
+    <div class="wrap contact">
+      <form id="form-contact" class="form card" novalidate>
+        <div class="champs">
+          <label class="champ">
+            <span>Nom et prénom <b>*</b></span>
+            <input type="text" name="nom" required autocomplete="name" />
+          </label>
+          <label class="champ">
+            <span>Société</span>
+            <input type="text" name="societe" autocomplete="organization" />
+          </label>
+          <label class="champ">
+            <span>Email <b>*</b></span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label class="champ">
+            <span>Téléphone</span>
+            <input type="tel" name="telephone" autocomplete="tel" />
+          </label>
+        </div>
+
+        <label class="champ">
+          <span>Sujet</span>
+          <select name="sujet">
+            {sujets.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </label>
+
+        <label class="champ">
+          <span>Votre message <b>*</b></span>
+          <textarea name="message" rows="6" required placeholder="Parlez-nous de votre établissement, de vos volumes, de votre marché…"></textarea>
+        </label>
+
+        <label class="consent">
+          <input type="checkbox" name="consentement" required />
+          <span>
+            J’accepte que mes informations soient utilisées pour répondre à ma demande,
+            conformément à la <a href="/politique-de-confidentialite">politique de confidentialité</a>.
+          </span>
+        </label>
+
+        <!-- piège à robots -->
+        <div class="piege" aria-hidden="true">
+          <label>Ne pas remplir<input type="text" name="site_web" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <button type="submit" class="btn btn--primary form__envoi">Envoyer le message</button>
+        <p class="form__etat" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="aside">
+        <div class="aside__bloc">
+          <h2>En direct</h2>
+          <ul class="aside__liste">
+            <li><span>Téléphone</span><a href={`tel:${site.telHref}`}>{site.tel}</a></li>
+            <li><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li><span>Siège</span><span>{site.siege}</span></li>
+            <li><span>Retrait</span><span>{site.villeCollect}</span></li>
+          </ul>
+        </div>
+
+        <div class="aside__bloc aside__bloc--rose">
+          <h2>Vous cherchez à acheter&nbsp;?</h2>
+          <p>
+            Les professionnels s’approvisionnent en perles MiruMiru dans le
+            réseau Metro. Les autres canaux sont détaillés ici.
+          </p>
+          <a href="/ou-nous-trouver" class="lien-fleche">Où nous trouver</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('form-contact') as HTMLFormElement | null
+  if (form) {
+    const bouton = form.querySelector('.form__envoi') as HTMLButtonElement
+    const etat = form.querySelector('.form__etat') as HTMLParagraphElement
+    const libelleInitial = bouton.textContent ?? 'Envoyer'
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      etat.className = 'form__etat'
+
+      if (!form.reportValidity()) return
+
+      const data = Object.fromEntries(new FormData(form).entries())
+      bouton.disabled = true
+      bouton.textContent = 'Envoi en cours…'
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        if (!res.ok) throw new Error(String(res.status))
+        form.reset()
+        etat.className = 'form__etat is-ok'
+        etat.textContent = 'Message envoyé. Nous vous répondons sous 24 h ouvrées.'
+      } catch {
+        etat.className = 'form__etat is-ko'
+        etat.textContent =
+          "L'envoi a échoué. Écrivez-nous directement à info@mirumiru.eu ou appelez le 04 85 88 02 73."
+      } finally {
+        bouton.disabled = false
+        bouton.textContent = libelleInitial
+      }
+    })
+  }
+</script>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+  @media (max-width: 900px) { .contact { grid-template-columns: 1fr; } }
+
+  .form { padding: clamp(1.6rem, 3vw, 2.4rem); display: grid; gap: 1.3rem; }
+  .champs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+  @media (max-width: 560px) { .champs { grid-template-columns: 1fr; } }
+
+  .champ { display: grid; gap: .45rem; }
+  .champ > span { font-family: var(--font-display); font-weight: 600; font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-2); }
+  .champ b { color: var(--rose-deep); }
+  .champ input, .champ select, .champ textarea {
+    font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+    background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: .75rem .9rem; width: 100%; transition: border-color .18s ease, background-color .18s ease;
+  }
+  .champ textarea { resize: vertical; min-height: 130px; }
+  .champ input:focus, .champ select:focus, .champ textarea:focus { border-color: var(--rose); background: var(--paper); outline: none; }
+
+  .consent { display: flex; gap: .7rem; align-items: flex-start; font-size: .89rem; color: var(--ink-2); }
+  .consent input { margin-top: .28rem; accent-color: var(--rose); width: 17px; height: 17px; flex: none; }
+  .consent a { color: var(--rose-deep); }
+
+  .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .form__envoi { justify-self: start; }
+  .form__etat { margin: 0; font-size: .93rem; min-height: 1.2em; }
+  .form__etat.is-ok { color: #1E7A4B; font-weight: 500; }
+  .form__etat.is-ko { color: var(--rose-deep); font-weight: 500; }
+
+  .aside { display: grid; gap: 1.4rem; }
+  .aside__bloc { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem 1.7rem; }
+  .aside__bloc h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+  .aside__bloc p { font-size: .95rem; color: var(--ink-2); }
+  .aside__bloc--rose { background: var(--cream-2); border-color: color-mix(in srgb, var(--rose) 30%, var(--line)); }
+
+  .aside__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+  .aside__liste li { display: grid; gap: .1rem; }
+  .aside__liste span:first-child { font-family: var(--font-display); font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-deep); }
+  .aside__liste a { color: var(--ink); text-decoration: none; font-size: 1rem; }
+  .aside__liste a:hover { color: var(--rose-deep); text-decoration: underline; }
+
+  .lien-fleche { font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--rose-deep); text-decoration: none; }
+  .lien-fleche::after { content: ' →'; }
+  .lien-fleche:hover { text-decoration: underline; }
+</style>

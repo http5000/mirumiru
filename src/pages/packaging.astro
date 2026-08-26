@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { packaging } from '../data/produits'
+---
+
+<Base
+  title="Packaging bubble tea — gobelets, film et scelleuse"
+  description="Gobelets scellables 360, 500 et 700 ml, film de scellage, machine à sceller manuelle et pailles larges : les consommables MiruMiru pour servir le bubble tea."
+  image="/img/produits/gobelet-500.jpg"
+>
+  <EnteteePage
+    eyebrow="Autour de la perle"
+    titre="Le nécessaire pour servir"
+    intro="Un bubble tea réussi tient aussi à la façon dont il est servi : un gobelet qui se scelle proprement, un film qui tient au transport, une paille assez large pour les perles. Voici ce que nous fournissons."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {packaging.map((c) => (
+          <article class="item reveal">
+            <div class="item__img">
+              <img src={c.image} alt={c.nom} loading="lazy" width="500" height="500" />
+            </div>
+            <div class="item__corps">
+              <h2 class="item__nom">{c.nom}</h2>
+              <p class="item__detail">{c.detail}</p>
+              <ul class="item__specs">
+                {c.specs.map((s) => <li>{s}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="wrap-narrow centre-texte">
+      <p class="eyebrow">Bon à savoir</p>
+      <h2>Le trio qui fait tenir le gobelet</h2>
+      <p class="lead">
+        Nos gobelets font 95 mm de diamètre, comme la très grande majorité des
+        machines à sceller du marché. Film, gobelet et scelleuse se choisissent
+        ensemble : c’est ce qui évite les fuites, les rebuts et les gobelets mal
+        fermés au moment du coup de feu.
+      </p>
+      <div class="actions">
+        <a href="/contact" class="btn btn--primary">Poser une question technique</a>
+        <a href="/ou-nous-trouver" class="btn btn--ghost">Où commander</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .item { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease; }
+  .item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+  .item__img { aspect-ratio: 4 / 3; background: var(--cream-2); overflow: hidden; }
+  .item__img img { width: 100%; height: 100%; object-fit: contain; padding: 9%; }
+  .item__corps { padding: 1.5rem 1.6rem 1.7rem; display: flex; flex-direction: column; flex: 1; }
+  .item__nom { font-size: 1.22rem; margin-bottom: .55rem; }
+  .item__detail { font-size: .95rem; color: var(--ink-2); margin-bottom: 1.2rem; }
+  .item__specs { list-style: none; margin: auto 0 0; padding: 0; display: grid; gap: .4rem; }
+  .item__specs li { font-size: .86rem; color: var(--ink-3); padding-left: 1.2rem; position: relative; }
+  .item__specs li::before { content: ''; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); }
+
+  .centre-texte { text-align: center; }
+  .centre-texte .lead { margin-inline: auto; }
+  .actions { display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; margin-top: 2rem; }
+</style>

@@ -1,0 +1,75 @@
+---
+import { site, nav } from '../data/site'
+const annee = new Date().getFullYear()
+---
+
+<footer class="pied">
+  <div class="wrap pied__grille">
+    <div>
+      <a href="/" class="pied__logo">
+        <img src="/img/brand/logo.webp" alt="" width="52" height="52" />
+        <span>MiruMiru</span>
+      </a>
+      <p class="pied__pitch">
+        Fabricant et importateur de perles de fruits pour bubble tea.
+        Une marque française, née près de Lyon.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="pied__titre">La marque</h3>
+      <ul class="pied__liste">
+        {nav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="pied__titre">Nous écrire</h3>
+      <ul class="pied__liste">
+        <li><a href={`tel:${site.telHref}`}>{site.tel}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>{site.siege}</li>
+        <li><a href="/contact">Formulaire de contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="pied__titre">Infos</h3>
+      <ul class="pied__liste">
+        <li><a href="/faq">Questions fréquentes</a></li>
+        <li><a href="/mentions-legales">Mentions légales</a></li>
+        <li><a href="/politique-de-confidentialite">Confidentialité</a></li>
+        <li><a href="/rss.xml">Flux RSS</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap pied__bas">
+    <p>© {annee} MiruMiru — tous droits réservés.</p>
+    <p class="pied__mention">Édité par http5000, Lyon.</p>
+  </div>
+</footer>
+
+<style>
+  .pied { background: var(--ink); color: color-mix(in srgb, var(--cream) 76%, transparent); padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; }
+  .pied__grille { display: grid; gap: 2.5rem; grid-template-columns: 1.6fr 1fr 1.2fr 1fr; }
+  @media (max-width: 860px) { .pied__grille { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+
+  .pied__logo { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--cream); margin-bottom: 1rem; }
+  .pied__logo img { width: 52px; height: 52px; object-fit: contain; background: var(--cream); border-radius: 14px; padding: 4px; }
+  .pied__logo span { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; }
+  .pied__pitch { font-size: .95rem; max-width: 34ch; line-height: 1.6; }
+
+  .pied__titre { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mango); margin-bottom: 1rem; }
+  .pied__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; font-size: .95rem; }
+  .pied__liste a { color: inherit; text-decoration: none; }
+  .pied__liste a:hover { color: var(--mango); text-decoration: underline; }
+
+  .pied__bas {
+    margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+    font-size: .85rem; color: color-mix(in srgb, var(--cream) 55%, transparent);
+  }
+  .pied__bas p { margin: 0; }
+</style>

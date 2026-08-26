@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+---
+
+<Base
+  title="La marque MiruMiru"
+  description="MiruMiru, marque française de perles de fruits pour bubble tea. Fabricant et importateur près de Lyon, partenaire des professionnels depuis les débuts du boba en France."
+>
+  <EnteteePage
+    eyebrow="La marque"
+    titre="Une marque née d’un manque"
+    intro="MiruMiru n’est pas partie d’un produit, mais d’un constat : en France, ceux qui voulaient se lancer dans le bubble tea ne trouvaient ni conseil, ni approvisionnement régulier."
+  />
+
+  <section class="section section--paper">
+    <div class="wrap duo">
+      <div class="reveal">
+        <h2>Le problème, c’était la rupture</h2>
+        <p>
+          Au début des années 2020, monter un corner à bubble tea en France
+          relevait du parcours du combattant. Les perles arrivaient par
+          conteneurs entiers ou pas du tout. Un mois vous aviez de la mangue, le
+          suivant plus rien — et une carte trouée, c’est une carte que les
+          clients arrêtent de lire.
+        </p>
+        <p>
+          Nous avons construit MiruMiru pour régler ça. Fabriquer, importer,
+          stocker près de Lyon, et tenir la gamme dans la durée. Un
+          professionnel doit pouvoir mettre nos perles à sa carte en sachant
+          qu’elles y seront encore dans six mois.
+        </p>
+      </div>
+      <div class="reveal">
+        <img src="/img/brand/sunset-carre.webp" alt="Bubble tea MiruMiru" loading="lazy" width="700" height="700" class="visuel" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="entete-centre">
+        <p class="eyebrow">Notre métier</p>
+        <h2>Trois casquettes, un seul interlocuteur</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="pilier reveal">
+          <span class="pilier__num">01</span>
+          <h3>Fabricant</h3>
+          <p>Nous définissons nos recettes de popping boba : le taux de jus, la tenue de la membrane, l’intensité de la couleur. Une perle MiruMiru se reconnaît au moment où elle cède.</p>
+        </div>
+        <div class="pilier reveal">
+          <span class="pilier__num">02</span>
+          <h3>Importateur</h3>
+          <p>Nous maîtrisons la chaîne depuis l’Asie jusqu’à nos entrepôts près de Lyon : conformité, étiquetage, traçabilité, dates de conservation. C’est la partie invisible, celle qui évite les mauvaises surprises.</p>
+        </div>
+        <div class="pilier reveal">
+          <span class="pilier__num">03</span>
+          <h3>Partenaire</h3>
+          <p>Nous accompagnons les professionnels qui démarrent : quels parfums ouvrir, comment construire une carte, quel matériel prendre. Vingt ans de métier dans le commerce, mis au service d’un produit jeune.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream2">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Lyon</p>
+      <h2>Une marque française, ancrée dans le Rhône</h2>
+      <p class="lead">
+        MiruMiru est éditée depuis Lyon 7e, avec un point de retrait à
+        Saint-Genis-Laval. Ce n’est pas un détail : être en France, c’est
+        répondre au téléphone à la bonne heure, régler un problème d’étiquetage
+        dans la journée, et connaître les établissements qu’on fournit.
+      </p>
+      <p class="lead">
+        Nous croisons régulièrement la route des acteurs de la restauration
+        française — nous étions par exemple au Forum de la Franchise à Lyon aux
+        côtés de Kajiro Sushi.
+      </p>
+      <div class="actions">
+        <a href="/ou-nous-trouver" class="btn btn--primary">Où trouver nos perles</a>
+        <a href="/blog" class="btn btn--ghost">Lire le journal</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .duo { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 880px) { .duo { grid-template-columns: 1fr; } }
+  .duo p { color: var(--ink-2); }
+  .visuel { border-radius: var(--radius-lg); box-shadow: var(--shadow); width: 100%; aspect-ratio: 1; object-fit: cover; }
+
+  .entete-centre { text-align: center; margin-bottom: 2.8rem; }
+
+  .pilier { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem 1.7rem; position: relative; }
+  .pilier__num { font-family: var(--font-display); font-weight: 600; font-size: 2.6rem; line-height: 1; color: color-mix(in srgb, var(--rose) 28%, transparent); display: block; margin-bottom: .6rem; }
+  .pilier h3 { margin-bottom: .6rem; }
+  .pilier p { font-size: .95rem; color: var(--ink-2); margin: 0; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
+</style>

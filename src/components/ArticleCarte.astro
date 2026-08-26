@@ -1,0 +1,45 @@
+---
+interface Props {
+  href: string
+  titre: string
+  description: string
+  date: string
+  image?: string
+}
+const { href, titre, description, date, image } = Astro.props
+const affichage = new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+---
+<article class="art reveal">
+  <a href={href} class="art__lien">
+    <div class="art__visuel">
+      {image
+        ? <img src={image} alt="" loading="lazy" width="600" height="400" />
+        : <div class="art__vide" aria-hidden="true"></div>}
+    </div>
+    <div class="art__corps">
+      <time class="art__date" datetime={date}>{affichage}</time>
+      <h3 class="art__titre">{titre}</h3>
+      <p class="art__desc">{description}</p>
+      <span class="art__plus">Lire l’article</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .art { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+  .art:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+  .art__lien { display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit; }
+  .art__visuel { aspect-ratio: 16 / 10; overflow: hidden; background: var(--cream-2); }
+  .art__visuel img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .art:hover .art__visuel img { transform: scale(1.04); }
+  .art__vide { width: 100%; height: 100%; background: linear-gradient(135deg, var(--cream-2), color-mix(in srgb, var(--rose) 16%, var(--cream-2))); }
+  .art__corps { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .art__date { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .art__titre { font-size: 1.2rem; margin: .5rem 0 .55rem; color: var(--ink); }
+  .art__desc {
+    font-size: .93rem; color: var(--ink-2); line-height: 1.55; margin-bottom: 1.1rem;
+    display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .art__plus { margin-top: auto; font-family: var(--font-display); font-weight: 600; font-size: .92rem; color: var(--rose-deep); }
+  .art:hover .art__plus { text-decoration: underline; }
+</style>

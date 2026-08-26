@@ -1,0 +1,69 @@
+# ============================================================
+# Redirections 301 — anciennes URLs Shopify vers le site de marque
+# Cloudflare Pages : première règle qui correspond, gagne.
+# ============================================================
+
+# ---- Pages Shopify ----
+/pages/contact                      /contact                        301
+/pages/faq                          /faq                            301
+/pages/propos                       /la-marque                      301
+/pages/guide                        /blog                           301
+/pages/politique-de-confidentialite /politique-de-confidentialite   301
+/pages/livraison                    /faq                            301
+/pages/livraison-retours            /faq                            301
+/pages/commandes                    /faq                            301
+/pages/paiement                     /faq                            301
+/pages/retour-et-remboursement      /faq                            301
+/pages/wishlist                     /                               301
+/pages/search-results-page          /                               301
+/pages/*                            /                               301
+/policies/*                         /politique-de-confidentialite   301
+
+# ---- Index du blog (les articles gardent leur URL /blogs/infos/<slug>) ----
+/blogs/infos                        /blog                           301
+/blogs/infos/tagged/*               /blog                           301
+
+# ---- Collections ----
+/collections/packaging              /packaging                      301
+/collections/equipment              /packaging                      301
+/collections/fruit-pearls           /perles-de-fruits               301
+/collections/perles-de-fruit-500g   /perles-de-fruits               301
+/collections/tapioca-pearls         /perles-de-fruits               301
+/collections/powders                /perles-de-fruits               301
+/collections/*                      /perles-de-fruits               301
+
+# ---- Produits : packaging & équipement ----
+/products/set-of-1-000-plastic-cups-360-ml                            /packaging  301
+/products/lot-de-1000-gobelets-jetables-500-ml-diametre-95-mm          /packaging  301
+/products/set-of-1000-plastic-cups-700-ml                             /packaging  301
+/products/film-en-polyethylene-en-rouleau-transparent                 /packaging  301
+/products/machine-a-sceller-manuelle                                  /packaging  301
+/products/set-of-3000-bamboo-straws-individually-wrapped-diameter-12-mm /packaging 301
+/products/couvercle-bols-a-salade-pet                                 /packaging  301
+/products/salad-bowl-750ml-pack-of-300                                /packaging  301
+
+# ---- Produits : tout le reste part vers la gamme de perles ----
+/products/*                         /perles-de-fruits               301
+
+# ---- Tunnel e-commerce supprimé ----
+/cart                               /                               301
+/cart/*                             /                               301
+/checkout                           /                               301
+/checkout/*                         /                               301
+/account                            /                               301
+/account/*                          /                               301
+/search                             /                               301
+/apps/*                             /                               301
+/a/*                                /                               301
+/tools/*                            /                               301
+
+# ---- Ancienne version anglaise du thème Shopify ----
+/en                                 /                               301
+/en/*                               /                               301
+
+# ---- Sitemaps Shopify ----
+/sitemap.xml                        /sitemap-index.xml              301
+/sitemap_products_1.xml             /sitemap-index.xml              301
+/sitemap_pages_1.xml                /sitemap-index.xml              301
+/sitemap_collections_1.xml          /sitemap-index.xml              301
+/sitemap_blogs_1.xml                /sitemap-index.xml              301

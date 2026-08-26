@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content'
+import Base from '../../layouts/Base.astro'
+import EnteteePage from '../../components/EnteteePage.astro'
+import ArticleCarte from '../../components/ArticleCarte.astro'
+
+const articles = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+)
+const [une, ...suite] = articles
+---
+
+<Base
+  title="Le journal MiruMiru — bubble tea, recettes et marché"
+  description="Recettes de bubble tea, tendances du marché français, conseils pour ouvrir un corner boba : le journal de MiruMiru, fournisseur de perles de fruits."
+>
+  <EnteteePage
+    eyebrow="Le journal"
+    titre="Tout ce qu’on apprend sur le bubble tea"
+    intro={`${articles.length} articles sur les recettes, les saveurs qui marchent, l’état du marché français et les coulisses du métier de fournisseur.`}
+  />
+
+  {une && (
+    <section class="section section--tight">
+      <div class="wrap">
+        <a href={`/blogs/infos/${une.id}`} class="une">
+          {une.data.cover && (
+            <div class="une__img">
+              <img src={une.data.cover} alt="" width="900" height="600" fetchpriority="high" />
+            </div>
+          )}
+          <div class="une__corps">
+            <p class="eyebrow">Dernier article</p>
+            <h2>{une.data.title}</h2>
+            <p class="lead">{une.data.description}</p>
+            <span class="une__plus">Lire l’article →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {suite.map((a) => (
+          <ArticleCarte
+            href={`/blogs/infos/${a.id}`}
+            titre={a.data.title}
+            description={a.data.description}
+            date={a.data.pubDate.toISOString().slice(0, 10)}
+            image={a.data.cover}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .une {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 0;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden;
+    text-decoration: none; color: inherit;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .une:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  @media (max-width: 860px) { .une { grid-template-columns: 1fr; } }
+  .une__img { aspect-ratio: 3 / 2; overflow: hidden; background: var(--cream-2); }
+  .une__img img { width: 100%; height: 100%; object-fit: cover; }
+  .une__corps { padding: clamp(1.7rem, 3.5vw, 2.8rem); display: flex; flex-direction: column; justify-content: center; }
+  .une__corps h2 { font-size: clamp(1.5rem, 2.8vw, 2.2rem); }
+  .une__plus { margin-top: 1.4rem; font-family: var(--font-display); font-weight: 600; color: var(--rose-deep); }
+  .une:hover .une__plus { text-decoration: underline; }
+</style>

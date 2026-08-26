@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { site } from '../data/site'
+---
+
+<Base
+  title="Où trouver les perles de fruits MiruMiru"
+  description="Les perles de fruits MiruMiru sont distribuées aux professionnels dans le réseau Metro France. Distributeurs, centrales d’achat et export : contactez-nous directement."
+>
+  <EnteteePage
+    eyebrow="S’approvisionner"
+    titre="Où trouver nos perles"
+    intro="MiruMiru est une marque, pas une boutique en ligne. Nos perles de fruits passent par des professionnels de la distribution — voici les chemins possibles."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--2 canaux">
+        <article class="canal canal--principal reveal">
+          <p class="canal__tag">Le canal principal</p>
+          <h2>Chez Metro</h2>
+          <p>
+            Les professionnels de la restauration trouvent les perles de fruits
+            MiruMiru dans le réseau <strong>Metro France</strong>. C’est le moyen
+            le plus simple de s’approvisionner : le produit est en rayon, à côté
+            du reste de vos achats, sans commande minimum à gérer ni délai
+            d’import à anticiper.
+          </p>
+          <p class="canal__aide">
+            Votre entrepôt ne référence pas encore la gamme&nbsp;? Dites-le-nous,
+            nous faisons le lien.
+          </p>
+          <a href="/contact" class="btn btn--primary">Signaler un entrepôt</a>
+        </article>
+
+        <div class="colonne">
+          <article class="canal reveal">
+            <p class="canal__tag">Volumes</p>
+            <h2>Distributeurs &amp; centrales</h2>
+            <p>
+              Grossistes, centrales d’achat, chaînes et franchises : nous
+              travaillons directement les volumes, les conditionnements et les
+              référencements. Parlons palettes plutôt que cartons.
+            </p>
+            <a href="/contact" class="lien-fleche">Nous écrire</a>
+          </article>
+
+          <article class="canal reveal">
+            <p class="canal__tag">International</p>
+            <h2>Export</h2>
+            <p>
+              Nous étudions les demandes à l’export au cas par cas, en fonction
+              du pays, des volumes et des contraintes réglementaires
+              d’étiquetage. Écrivez-nous avec votre marché et vos quantités.
+            </p>
+            <a href="/contact" class="lien-fleche">Demander une étude</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="wrap contact-bloc">
+      <div>
+        <p class="eyebrow">Le plus direct</p>
+        <h2>Un doute&nbsp;? Appelez-nous</h2>
+        <p class="lead">
+          Nous répondons nous-mêmes, sans standard ni formulaire à rallonge.
+          Une question sur un parfum, une fiche technique, une disponibilité :
+          c’est souvent réglé en trois minutes.
+        </p>
+      </div>
+      <ul class="coord">
+        <li>
+          <span>Téléphone</span>
+          <a href={`tel:${site.telHref}`}>{site.tel}</a>
+        </li>
+        <li>
+          <span>Email</span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <span>Retrait</span>
+          <span class="coord__val">{site.villeCollect}, près de Lyon</span>
+        </li>
+        <li>
+          <span>Siège</span>
+          <span class="coord__val">{site.siege}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .canaux { align-items: stretch; }
+  .colonne { display: grid; gap: 1.6rem; align-content: start; }
+
+  .canal { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 2rem 2.1rem; }
+  .canal--principal { border-color: var(--rose); border-width: 2px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .canal__tag { font-family: var(--font-display); font-weight: 600; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: .7rem; }
+  .canal h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: .8rem; }
+  .canal p { font-size: .99rem; color: var(--ink-2); }
+  .canal__aide { background: var(--cream-2); border-radius: var(--radius); padding: .9rem 1.1rem; font-size: .93rem; margin-bottom: 1.5rem; }
+  .canal--principal .btn { align-self: flex-start; margin-top: auto; }
+
+  .lien-fleche { font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--rose-deep); text-decoration: none; }
+  .lien-fleche::after { content: ' →'; }
+  .lien-fleche:hover { text-decoration: underline; }
+
+  .contact-bloc { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 880px) { .contact-bloc { grid-template-columns: 1fr; } }
+
+  .coord { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: color-mix(in srgb, var(--cream) 16%, transparent); border-radius: var(--radius); overflow: hidden; }
+  .coord li { background: var(--ink); padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .coord span:first-child { font-family: var(--font-display); font-weight: 600; font-size: .74rem; letter-spacing: .13em; text-transform: uppercase; color: var(--mango); }
+  .coord a, .coord__val { font-size: 1.02rem; color: var(--cream); text-decoration: none; }
+  .coord a:hover { color: var(--mango); text-decoration: underline; }
+</style>

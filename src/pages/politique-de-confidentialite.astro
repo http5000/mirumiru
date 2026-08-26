@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { societe, site } from '../data/site'
+---
+
+<Base
+  title="Politique de confidentialité"
+  description="Comment MiruMiru collecte, utilise et protège les données transmises via mirumiru-pro.com."
+  noindex
+>
+  <EnteteePage
+    eyebrow="RGPD"
+    titre="Politique de confidentialité"
+    intro="Cette page décrit les traitements mis en œuvre par MiruMiru sur les informations que vous nous transmettez via ce site."
+  />
+
+  <section class="section">
+    <div class="wrap-narrow prose">
+      <h2>Responsable du traitement</h2>
+      <p>
+        {societe.raison}, {societe.forme}, {societe.adresse} — {societe.rcs}.
+        Contact : <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>Données collectées</h2>
+      <p>
+        Nous collectons uniquement les données que vous saisissez volontairement
+        dans le formulaire de contact : nom et prénom, société, adresse email,
+        numéro de téléphone, sujet de la demande et contenu du message.
+      </p>
+      <p>
+        Ce site ne dépose <strong>aucun cookie publicitaire ni traceur
+        tiers</strong>. Les polices de caractères sont hébergées sur notre propre
+        domaine : aucune requête n’est envoyée à un service externe lors de votre
+        navigation.
+      </p>
+
+      <h2>Finalité</h2>
+      <p>
+        Ces données servent exclusivement à traiter votre demande et à assurer le
+        suivi commercial qui en découle. Elles ne sont ni vendues, ni échangées,
+        ni cédées à des tiers à des fins de prospection.
+      </p>
+
+      <h2>Base légale</h2>
+      <p>
+        Le traitement repose sur votre consentement, recueilli au moment de
+        l’envoi du formulaire, et sur notre intérêt légitime à répondre aux
+        sollicitations commerciales qui nous sont adressées.
+      </p>
+
+      <h2>Destinataires et sous-traitants</h2>
+      <p>
+        Les messages sont acheminés par <strong>Resend</strong> (service d’envoi
+        d’emails) et aboutissent dans la boîte email de MiruMiru. Le site est
+        hébergé par <strong>Cloudflare</strong>. Ces prestataires agissent en
+        qualité de sous-traitants et n’utilisent pas vos données à leurs propres
+        fins.
+      </p>
+
+      <h2>Durée de conservation</h2>
+      <p>
+        Les demandes sont conservées trois ans à compter du dernier contact, puis
+        supprimées.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Conformément au RGPD et à la loi Informatique et Libertés, vous disposez
+        d’un droit d’accès, de rectification, d’effacement, de limitation, de
+        portabilité et d’opposition sur vos données. Pour l’exercer, écrivez à
+        <a href={`mailto:${site.email}`}>{site.email}</a>. Vous pouvez également
+        introduire une réclamation auprès de la CNIL
+        (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).
+      </p>
+
+      <h2>Sécurité</h2>
+      <p>
+        Le site est servi exclusivement en HTTPS. Les échanges avec le formulaire
+        de contact sont chiffrés en transit.
+      </p>
+    </div>
+  </section>
+</Base>

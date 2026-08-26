@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { site } from '../data/site'
+
+const questions = [
+  {
+    q: 'Peut-on commander directement sur ce site ?',
+    r: "Non. mirumiru-pro.com est le site de la marque, pas une boutique en ligne. Les professionnels s'approvisionnent en perles de fruits MiruMiru dans le réseau Metro. Pour les volumes, la distribution ou l'export, écrivez-nous directement.",
+  },
+  {
+    q: 'Qu’est-ce qu’une perle de fruits (popping boba) ?',
+    r: "C'est une bille remplie de jus de fruit, entourée d'une membrane végétale très fine. Elle passe dans une paille large, puis éclate en bouche. À ne pas confondre avec la perle de tapioca, qui est une bille d'amidon à cuire, à la texture élastique.",
+  },
+  {
+    q: 'Combien de parfums existe-t-il ?',
+    r: 'Sept : fraise, mangue, litchi, fruit de la passion, pomme verte, pêche et framboise. Chacun a sa couleur, ce qui permet de composer une carte lisible et visuellement variée.',
+  },
+  {
+    q: 'Comment se conservent les perles ?',
+    r: "Avant ouverture, entre 0 et 35 °C, à l'abri de la lumière — pas besoin de chambre froide. Une fois le seau ouvert, comptez un mois au frais.",
+  },
+  {
+    q: 'Les perles de fruits contiennent-elles du gluten ?',
+    r: "Non, les perles de fruits sont sans gluten. Attention en revanche aux autres ingrédients d'une recette de bubble tea (poudres, toppings, thés aromatisés) : c'est là que le gluten peut se cacher.",
+  },
+  {
+    q: 'Quel conditionnement ?',
+    r: 'Le seau professionnel de 3,1 kg (2,2 kg net égoutté), livré par carton de quatre seaux.',
+  },
+  {
+    q: 'Quels gobelets utiliser ?',
+    r: 'Nos gobelets scellables existent en 360, 500 et 700 ml, tous en diamètre 95 mm, compatibles avec la grande majorité des machines à sceller. Le 500 ml est le format standard du bubble tea.',
+  },
+  {
+    q: 'Puis-je obtenir les fiches techniques et les étiquetages ?',
+    r: 'Oui, sur simple demande. Indiquez-nous les parfums concernés et votre usage (France, export, restauration collective) et nous vous envoyons les documents correspondants.',
+  },
+  {
+    q: 'Vous livrez à l’étranger ?',
+    r: "Les demandes à l'export sont étudiées au cas par cas selon le pays, les volumes et les contraintes réglementaires d'étiquetage. Écrivez-nous avec votre marché et vos quantités.",
+  },
+]
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map((x) => ({
+    '@type': 'Question',
+    name: x.q,
+    acceptedAnswer: { '@type': 'Answer', text: x.r },
+  })),
+}
+---
+
+<Base
+  title="Questions fréquentes"
+  description="Perles de fruits, conservation, conditionnement, gobelets, export : les réponses aux questions les plus posées à MiruMiru."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <EnteteePage
+    eyebrow="FAQ"
+    titre="Questions fréquentes"
+    intro="Ce qu’on nous demande le plus souvent. Si votre question n’y est pas, appelez-nous."
+  />
+
+  <section class="section">
+    <div class="wrap-narrow">
+      <div class="faq">
+        {questions.map((x, i) => (
+          <details class="qa" open={i === 0}>
+            <summary>{x.q}</summary>
+            <p>{x.r}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="reste">
+        <h2>Il reste une question&nbsp;?</h2>
+        <p class="lead">On répond au téléphone, c’est souvent plus rapide.</p>
+        <div class="actions">
+          <a href={`tel:${site.telHref}`} class="btn btn--primary">{site.tel}</a>
+          <a href="/contact" class="btn btn--ghost">Écrire un message</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq { display: grid; gap: .8rem; }
+  .qa { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 0 1.5rem; transition: border-color .18s ease; }
+  .qa[open] { border-color: color-mix(in srgb, var(--rose) 45%, var(--line)); }
+  .qa summary {
+    font-family: var(--font-display); font-weight: 600; font-size: 1.08rem;
+    padding: 1.15rem 2rem 1.15rem 0; cursor: pointer; list-style: none;
+    position: relative; color: var(--ink);
+  }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after {
+    content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-size: 1.5rem; line-height: 1; color: var(--rose); transition: transform .2s ease;
+  }
+  .qa[open] summary::after { content: '−'; }
+  .qa p { margin: 0; padding: 0 0 1.35rem; color: var(--ink-2); font-size: .99rem; }
+
+  .reste { margin-top: 3.5rem; text-align: center; padding: 2.5rem 1.5rem; background: var(--cream-2); border-radius: var(--radius-lg); }
+  .reste .lead { margin-inline: auto; }
+  .actions { display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; margin-top: 1.6rem; }
+</style>

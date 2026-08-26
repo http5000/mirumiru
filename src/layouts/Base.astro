@@ -1,0 +1,76 @@
+---
+import '../styles/global.css'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import { site } from '../data/site'
+
+interface Props {
+  title: string
+  description: string
+  image?: string
+  type?: 'website' | 'article'
+  noindex?: boolean
+}
+
+const { title, description, image = '/img/brand/logo-carre.jpg', type = 'website', noindex = false } = Astro.props
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site ?? site.url).href
+const ogImage = new URL(image, Astro.site ?? site.url).href
+const titreComplet = title.includes(site.nom) ? title : `${title} — ${site.nom}`
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titreComplet}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/brand/logo-carre.jpg" />
+
+    <link rel="preload" href="/fonts/fredoka-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:site_name" content={site.nom} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={titreComplet} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#FFFBF4" />
+
+    <link rel="alternate" type="application/rss+xml" title={`Blog ${site.nom}`} href="/rss.xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#contenu" class="sr-only">Aller au contenu</a>
+    <Nav />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const cibles = document.querySelectorAll('.reveal')
+      if (cibles.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in')
+                io.unobserve(e.target)
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        )
+        cibles.forEach((c) => io.observe(c))
+      }
+    </script>
+  </body>
+</html>

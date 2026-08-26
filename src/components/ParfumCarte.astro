@@ -1,0 +1,43 @@
+---
+import type { Parfum } from '../data/produits'
+interface Props { parfum: Parfum; detaille?: boolean }
+const { parfum, detaille = false } = Astro.props
+---
+<article class="parfum reveal" style={`--teinte:${parfum.couleur}`}>
+  <div class="parfum__visuel">
+    <img src={parfum.image} alt={`Perles de fruits ${parfum.nom} MiruMiru`} loading="lazy" width="420" height="420" />
+  </div>
+  <div class="parfum__texte">
+    <h3 class="parfum__nom">{parfum.nom}</h3>
+    {detaille && <p class="parfum__note">{parfum.note}</p>}
+    <p class="parfum__accord"><span>S’accorde avec</span> {parfum.accord}</p>
+  </div>
+</article>
+
+<style>
+  .parfum {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .parfum:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: var(--teinte); }
+  .parfum__visuel {
+    position: relative; aspect-ratio: 1; overflow: hidden;
+    background: color-mix(in srgb, var(--teinte) 9%, var(--paper));
+  }
+  .parfum__visuel::after {
+    content: ''; position: absolute; inset: auto -20% -45% -20%; height: 70%;
+    background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--teinte) 26%, transparent), transparent 70%);
+  }
+  .parfum__visuel img { width: 100%; height: 100%; object-fit: contain; padding: 12%; position: relative; z-index: 1; }
+  .parfum__texte { padding: 1.35rem 1.5rem 1.6rem; border-top: 3px solid var(--teinte); }
+  .parfum__nom { font-size: 1.35rem; margin-bottom: .45rem; color: var(--ink); }
+  .parfum__note { font-size: .95rem; color: var(--ink-2); margin-bottom: .9rem; line-height: 1.55; }
+  .parfum__accord { font-size: .87rem; color: var(--ink-3); margin: 0; }
+  .parfum__accord span {
+    display: block; font-family: var(--font-display); font-weight: 600;
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--teinte); margin-bottom: .15rem;
+  }
+</style>

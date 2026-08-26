@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro'
+import EnteteePage from '../components/EnteteePage.astro'
+import { societe, site } from '../data/site'
+---
+
+<Base
+  title="Mentions légales"
+  description="Mentions légales du site mirumiru-pro.com — éditeur, hébergeur et propriété intellectuelle."
+  noindex
+>
+  <EnteteePage eyebrow="Informations" titre="Mentions légales" />
+
+  <section class="section">
+    <div class="wrap-narrow prose">
+      <h2>Éditeur du site</h2>
+      <p>
+        <strong>{societe.raison}</strong><br />
+        {societe.forme}<br />
+        {societe.adresse}<br />
+        {societe.rcs}<br />
+        Code APE {societe.ape} — TVA intracommunautaire {societe.tva}<br />
+        Téléphone : {societe.telSociete}
+      </p>
+      <p>Directeur de la publication : {societe.directeurPublication}.</p>
+      <p>Contact : <a href={`mailto:${site.email}`}>{site.email}</a> — <a href={`tel:${site.telHref}`}>{site.tel}</a></p>
+
+      <h2>Hébergement</h2>
+      <p>
+        Le site est hébergé par Cloudflare, Inc., 101 Townsend Street,
+        San Francisco, CA 94107, États-Unis — <a href="https://www.cloudflare.com" rel="noopener">cloudflare.com</a>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L’ensemble des contenus présents sur ce site — textes, photographies,
+        illustrations, logos et marques — est la propriété de {societe.raison} ou
+        de ses partenaires, et est protégé par le droit de la propriété
+        intellectuelle. Toute reproduction, représentation ou diffusion, totale
+        ou partielle, sans autorisation écrite préalable, est interdite.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        Les informations publiées sur ce site sont fournies à titre indicatif et
+        peuvent évoluer. Les caractéristiques produits, compositions et
+        allergènes font foi sur les fiches techniques et les étiquetages remis
+        sur demande. {societe.raison} ne saurait être tenue responsable d’un
+        usage fait de ces informations sans vérification préalable auprès de ses
+        équipes.
+      </p>
+
+      <h2>Liens externes</h2>
+      <p>
+        Ce site peut contenir des liens vers des sites tiers. {societe.raison}
+        n’exerce aucun contrôle sur leur contenu et décline toute responsabilité
+        à leur égard.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement des données transmises via le formulaire de contact est
+        décrit dans notre <a href="/politique-de-confidentialite">politique de confidentialité</a>.
+      </p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,28 @@
+---
+interface Props { eyebrow: string; titre: string; intro?: string }
+const { eyebrow, titre, intro } = Astro.props
+---
+<section class="tete">
+  <div class="tete__deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="wrap tete__inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{titre}</h1>
+    {intro && <p class="lead">{intro}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .tete { position: relative; overflow: hidden; background: var(--cream-2); padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+  .tete__inner { position: relative; z-index: 2; }
+  .tete h1 { max-width: 18ch; }
+  .tete .lead { margin-top: 1.2rem; }
+  .tete__deco { position: absolute; inset: 0; pointer-events: none; }
+  .tete__deco span { position: absolute; border-radius: 50%; opacity: .3; }
+  .tete__deco span:nth-child(1) { width: 150px; height: 150px; background: var(--rose); top: -50px; right: 8%; }
+  .tete__deco span:nth-child(2) { width: 70px; height: 70px; background: var(--mango); bottom: 12%; right: 22%; }
+  .tete__deco span:nth-child(3) { width: 220px; height: 220px; background: var(--mint); bottom: -130px; right: -60px; opacity: .18; }
+  @media (max-width: 700px) { .tete__deco span:nth-child(2) { display: none; } }
+</style>

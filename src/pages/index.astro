@@ -1,0 +1,344 @@
+---
+import { getCollection } from 'astro:content'
+import Base from '../layouts/Base.astro'
+import Marquee from '../components/Marquee.astro'
+import ParfumCarte from '../components/ParfumCarte.astro'
+import ArticleCarte from '../components/ArticleCarte.astro'
+import { parfums, packaging } from '../data/produits'
+import { site } from '../data/site'
+
+const articles = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'MiruMiru',
+  url: site.url,
+  logo: `${site.url}/img/brand/logo-carre.jpg`,
+  description: 'Marque française de perles de fruits (popping boba) et de consommables pour bubble tea.',
+  telephone: site.tel,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '3 rue Passet',
+    postalCode: '69007',
+    addressLocality: 'Lyon',
+    addressCountry: 'FR',
+  },
+}
+---
+
+<Base
+  title="MiruMiru — perles de fruits & bubble tea"
+  description="MiruMiru, marque française de perles de fruits (popping boba) pour bubble tea : 7 parfums, gobelets scellables et consommables. Fabricant et importateur près de Lyon."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__deco" aria-hidden="true">
+      <span class="bulle bulle--1"></span>
+      <span class="bulle bulle--2"></span>
+      <span class="bulle bulle--3"></span>
+      <span class="bulle bulle--4"></span>
+      <span class="bulle bulle--5"></span>
+    </div>
+
+    <div class="wrap hero__inner">
+      <div class="hero__texte">
+        <p class="hero__tag">100 % rafraîchissant · 100 % kawaï</p>
+        <h1>
+          Les perles de fruits<br />
+          qui font <em>pop</em> dans<br />
+          le gobelet.
+        </h1>
+        <p class="lead">
+          MiruMiru fabrique et importe le popping boba qui colore les bubble teas
+          des professionnels français. Sept parfums, une explosion de jus à chaque
+          bille, et vingt ans de métier derrière chaque seau.
+        </p>
+        <div class="hero__actions">
+          <a href="/perles-de-fruits" class="btn btn--primary">Découvrir les 7 parfums</a>
+          <a href="/ou-nous-trouver" class="btn btn--ghost">Où nous trouver</a>
+        </div>
+      </div>
+
+      <div class="hero__visuel">
+        <img
+          src="/img/brand/hero-bubble.png"
+          alt="Bubble teas MiruMiru colorés aux perles de fruits"
+          width="900"
+          height="700"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Marquee
+    items={[
+      'Popping boba aux vrais jus de fruits',
+      '7 parfums',
+      'Fabricant & importateur',
+      'Une marque née près de Lyon',
+      'Gobelets scellables 360 · 500 · 700 ml',
+    ]}
+  />
+
+  <!-- ============ LA PERLE ============ -->
+  <section class="section section--paper">
+    <div class="wrap duo">
+      <div class="duo__texte reveal">
+        <p class="eyebrow">La perle MiruMiru</p>
+        <h2>Une bille de jus, et la boisson change de dimension</h2>
+        <p class="lead">
+          Le popping boba n’est pas un bonbon. C’est une fine membrane végétale
+          remplie de jus de fruit : elle tient sous la paille, puis cède d’un coup
+          en bouche. C’est ce contraste — la fraîcheur du thé, la texture, puis
+          l’éclat de fruit — qui fait revenir les clients.
+        </p>
+        <ul class="atouts">
+          <li><strong>À base de jus de fruits</strong> — la couleur vient du fruit, pas d’un sirop neutre.</li>
+          <li><strong>Seau de 3,1 kg</strong> — 2,2 kg net égoutté, le format pensé pour un service continu.</li>
+          <li><strong>Sans gluten</strong> — et compatible avec des recettes véganes.</li>
+          <li><strong>Se conserve à température ambiante</strong> — 0 à 35 °C avant ouverture, un mois au frais après.</li>
+        </ul>
+      </div>
+      <div class="duo__image reveal">
+        <img src="/img/brand/kawaii.png" alt="Perles de fruits MiruMiru en gros plan" loading="lazy" width="700" height="700" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARFUMS ============ -->
+  <section class="section" id="parfums">
+    <div class="wrap">
+      <div class="entete">
+        <div>
+          <p class="eyebrow">La gamme</p>
+          <h2>Sept parfums, sept couleurs</h2>
+        </div>
+        <p class="lead">
+          Chaque parfum a sa personnalité et sa teinte. Ensemble, ils composent
+          une carte lisible d’un coup d’œil — et une vitrine qui donne envie.
+        </p>
+      </div>
+
+      <div class="grid grid--4 parfums">
+        {parfums.map((p) => <ParfumCarte parfum={p} />)}
+      </div>
+
+      <div class="centre">
+        <a href="/perles-de-fruits" class="btn btn--primary">Voir la gamme en détail</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PACKAGING ============ -->
+  <section class="section section--cream2">
+    <div class="wrap">
+      <div class="entete">
+        <div>
+          <p class="eyebrow">Autour de la perle</p>
+          <h2>Le nécessaire pour servir</h2>
+        </div>
+        <p class="lead">
+          Gobelets scellables, film, machine à sceller, pailles larges : les
+          consommables qui font qu’un bubble tea se sert vite et se transporte bien.
+        </p>
+      </div>
+
+      <div class="grid grid--3">
+        {packaging.slice(0, 3).map((c) => (
+          <article class="conso reveal">
+            <div class="conso__img"><img src={c.image} alt={c.nom} loading="lazy" width="400" height="400" /></div>
+            <h3>{c.nom}</h3>
+            <p>{c.detail}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="centre">
+        <a href="/packaging" class="btn btn--ghost">Tout le packaging</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OÙ TROUVER ============ -->
+  <section class="section section--ink">
+    <div class="wrap duo duo--inverse">
+      <div class="duo__image reveal">
+        <img src="/img/brand/foule-boutique.jpg" alt="File d’attente devant un bar à bubble tea" loading="lazy" width="900" height="600" class="img-ronde" />
+      </div>
+      <div class="duo__texte reveal">
+        <p class="eyebrow">Où nous trouver</p>
+        <h2>Nos perles sont chez Metro</h2>
+        <p class="lead">
+          Les professionnels s’approvisionnent en perles de fruits MiruMiru
+          directement dans le réseau Metro France. Pas de commande minimum à
+          gérer, pas de délai d’import : le produit est au comptoir, à côté du
+          reste de vos achats.
+        </p>
+        <p class="lead">
+          Vous êtes distributeur, centrale d’achat ou acheteur à l’export&nbsp;?
+          Parlons volumes et conditionnements.
+        </p>
+        <div class="hero__actions">
+          <a href="/ou-nous-trouver" class="btn btn--primary">Comment s’approvisionner</a>
+          <a href="/contact" class="btn btn--ghost">Nous écrire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUBBLE TEA (SEO / marque) ============ -->
+  <section class="section section--paper">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Le bubble tea</p>
+      <h2>Bien plus qu’une boisson aux fruits</h2>
+      <div class="texte-long">
+        <p>
+          Né à Taïwan dans les années 1980, le bubble tea — ou boba tea — associe
+          un thé, chaud ou froid, à des perles que l’on aspire dans une paille
+          large. Longtemps confidentiel en France, il s’est imposé en quelques
+          années dans les centres-villes, les galeries commerciales et les cartes
+          de restaurants qui cherchaient une boisson signature.
+        </p>
+        <p>
+          Ce succès tient à trois choses : la boisson est ludique, elle est très
+          photogénique, et elle se décline à l’infini. Version traditionnelle au
+          tapioca, version fruitée aux perles de jus, version végane ou sans
+          gluten : la même base sert une carte entière.
+        </p>
+        <p>
+          MiruMiru est née de ce moment-là. Non pas pour vendre un ingrédient de
+          plus, mais pour rendre le popping boba accessible et régulier — un
+          produit qu’un professionnel peut mettre à sa carte en sachant qu’il
+          sera encore là le mois suivant.
+        </p>
+      </div>
+      <div class="centre">
+        <a href="/la-marque" class="btn btn--ghost">L’histoire de la marque</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="entete">
+        <div>
+          <p class="eyebrow">Le journal</p>
+          <h2>Recettes, tendances et coulisses</h2>
+        </div>
+        <p class="lead">
+          Ce qu’on apprend en fournissant des bars à bubble tea : les saveurs qui
+          marchent, les erreurs à éviter, l’état du marché français.
+        </p>
+      </div>
+
+      <div class="grid grid--3">
+        {articles.map((a) => (
+          <ArticleCarte
+            href={`/blogs/infos/${a.id}`}
+            titre={a.data.title}
+            description={a.data.description}
+            date={a.data.pubDate.toISOString().slice(0, 10)}
+            image={a.data.cover}
+          />
+        ))}
+      </div>
+
+      <div class="centre">
+        <a href="/blog" class="btn btn--ghost">Tous les articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta">
+    <div class="wrap-narrow cta__inner">
+      <h2>Une question sur nos perles&nbsp;?</h2>
+      <p class="lead">
+        Un parfum, un conditionnement, une fiche technique, une demande à
+        l’export : écrivez-nous, on répond vite et sans intermédiaire.
+      </p>
+      <div class="hero__actions">
+        <a href="/contact" class="btn btn--primary">Nous contacter</a>
+        <a href={`tel:${site.telHref}`} class="btn btn--ghost">{site.tel}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- hero ---- */
+  .hero { position: relative; overflow: hidden; padding: clamp(3rem, 7vw, 6rem) 0 clamp(3rem, 6vw, 5rem); }
+  .hero__inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; position: relative; z-index: 2; }
+  @media (max-width: 900px) { .hero__inner { grid-template-columns: 1fr; } }
+
+  .hero__tag {
+    display: inline-block; font-family: var(--font-display); font-weight: 600;
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--rose-deep); background: color-mix(in srgb, var(--rose) 12%, transparent);
+    padding: .45rem 1rem; border-radius: var(--radius-pill); margin-bottom: 1.4rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--rose); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
+  .hero__visuel img { border-radius: var(--radius-lg); box-shadow: var(--shadow-lift); width: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+
+  .hero__deco { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .bulle { position: absolute; border-radius: 50%; opacity: .35; }
+  .bulle--1 { width: 120px; height: 120px; background: var(--rose); top: 8%; left: -40px; }
+  .bulle--2 { width: 64px; height: 64px; background: var(--mango); top: 62%; left: 6%; }
+  .bulle--3 { width: 190px; height: 190px; background: var(--mint); bottom: -70px; right: 12%; opacity: .2; }
+  .bulle--4 { width: 40px; height: 40px; background: var(--pomme); top: 18%; right: 4%; }
+  .bulle--5 { width: 80px; height: 80px; background: var(--litchi); bottom: 12%; left: 44%; opacity: .25; }
+  @media (max-width: 700px) { .bulle--3, .bulle--5 { display: none; } }
+
+  /* ---- blocs deux colonnes ---- */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  @media (max-width: 880px) { .duo { grid-template-columns: 1fr; } .duo--inverse .duo__image { order: 2; } }
+  .duo__image img { border-radius: var(--radius-lg); box-shadow: var(--shadow); width: 100%; }
+  .img-ronde { aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .atouts { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: .9rem; }
+  .atouts li { position: relative; padding-left: 1.9rem; color: var(--ink-2); font-size: .99rem; }
+  .atouts li::before {
+    content: ''; position: absolute; left: 0; top: .52em;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--rose);
+  }
+  .atouts li:nth-child(2)::before { background: var(--mango); }
+  .atouts li:nth-child(3)::before { background: var(--mint); }
+  .atouts li:nth-child(4)::before { background: var(--pomme); }
+  .atouts strong { color: var(--ink); }
+
+  /* ---- entêtes de section ---- */
+  .entete { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; margin-bottom: 2.8rem; }
+  @media (max-width: 820px) { .entete { grid-template-columns: 1fr; gap: 1rem; } }
+  .entete h2 { margin-bottom: 0; }
+
+  .centre { display: flex; justify-content: center; margin-top: 2.8rem; }
+
+  /* ---- consommables ---- */
+  .conso { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; }
+  .conso__img { aspect-ratio: 4 / 3; margin: -1.6rem -1.6rem 1.2rem; background: var(--cream); overflow: hidden; }
+  .conso__img img { width: 100%; height: 100%; object-fit: contain; padding: 10%; }
+  .conso h3 { font-size: 1.15rem; margin-bottom: .5rem; }
+  .conso p { font-size: .93rem; color: var(--ink-2); margin: 0; }
+
+  .texte-long { font-size: 1.05rem; color: var(--ink-2); }
+
+  /* ---- CTA final ---- */
+  .cta { background: linear-gradient(135deg, var(--rose) 0%, #FF8FA8 55%, var(--mango) 100%); padding: clamp(3.5rem, 8vw, 6rem) 0; }
+  .cta__inner { text-align: center; }
+  .cta h2 { color: #fff; }
+  .cta .lead { color: rgba(255, 255, 255, .92); margin-inline: auto; }
+  .cta .hero__actions { justify-content: center; }
+  .cta .btn--primary { background: var(--ink); box-shadow: 0 6px 0 #000; }
+  .cta .btn--primary:hover { background: #000; box-shadow: 0 8px 0 #000; }
+  .cta .btn--ghost { border-color: #fff; color: #fff; }
+  .cta .btn--ghost:hover { background: #fff; color: var(--ink); }
+</style>
