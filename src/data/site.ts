@@ -5,7 +5,6 @@ export const site = {
   tel: '+33 (0)4 85 88 02 73',
   telHref: '+33485880273',
   email: 'info@mirumiru.eu',
-  villeCollect: 'Saint-Genis-Laval (69)',
   siege: '3 rue Passet, 69007 Lyon',
 } as const
 

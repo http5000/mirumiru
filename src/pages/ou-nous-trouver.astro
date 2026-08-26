@@ -16,7 +16,7 @@ import { site } from '../data/site'
 
   <section class="section">
     <div class="wrap">
-      <div class="grid grid--2 canaux">
+      <div class="canaux">
         <article class="canal canal--principal reveal">
           <p class="canal__tag">Le canal principal</p>
           <h2>Chez Metro</h2>
@@ -61,7 +61,7 @@ import { site } from '../data/site'
     </div>
   </section>
 
-  <section class="section section--ink">
+  <section class="section section--cream2">
     <div class="wrap contact-bloc">
       <div>
         <p class="eyebrow">Le plus direct</p>
@@ -82,10 +82,6 @@ import { site } from '../data/site'
           <a href={`mailto:${site.email}`}>{site.email}</a>
         </li>
         <li>
-          <span>Retrait</span>
-          <span class="coord__val">{site.villeCollect}, près de Lyon</span>
-        </li>
-        <li>
           <span>Siège</span>
           <span class="coord__val">{site.siege}</span>
         </li>
@@ -95,16 +91,17 @@ import { site } from '../data/site'
 </Base>
 
 <style>
-  .canaux { align-items: stretch; }
+  .canaux { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; align-items: start; }
+  @media (max-width: 900px) { .canaux { grid-template-columns: 1fr; } }
   .colonne { display: grid; gap: 1.6rem; align-content: start; }
 
   .canal { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 2rem 2.1rem; }
-  .canal--principal { border-color: var(--rose); border-width: 2px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .canal--principal { border-color: var(--rose); border-width: 2px; box-shadow: var(--shadow); }
   .canal__tag { font-family: var(--font-display); font-weight: 600; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: .7rem; }
   .canal h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: .8rem; }
   .canal p { font-size: .99rem; color: var(--ink-2); }
   .canal__aide { background: var(--cream-2); border-radius: var(--radius); padding: .9rem 1.1rem; font-size: .93rem; margin-bottom: 1.5rem; }
-  .canal--principal .btn { align-self: flex-start; margin-top: auto; }
+  .canal--principal .btn { align-self: flex-start; }
 
   .lien-fleche { font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--rose-deep); text-decoration: none; }
   .lien-fleche::after { content: ' →'; }
@@ -113,9 +110,9 @@ import { site } from '../data/site'
   .contact-bloc { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   @media (max-width: 880px) { .contact-bloc { grid-template-columns: 1fr; } }
 
-  .coord { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: color-mix(in srgb, var(--cream) 16%, transparent); border-radius: var(--radius); overflow: hidden; }
-  .coord li { background: var(--ink); padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-  .coord span:first-child { font-family: var(--font-display); font-weight: 600; font-size: .74rem; letter-spacing: .13em; text-transform: uppercase; color: var(--mango); }
-  .coord a, .coord__val { font-size: 1.02rem; color: var(--cream); text-decoration: none; }
-  .coord a:hover { color: var(--mango); text-decoration: underline; }
+  .coord { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .coord li { background: var(--paper); padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .coord span:first-child { font-family: var(--font-display); font-weight: 600; font-size: .74rem; letter-spacing: .13em; text-transform: uppercase; color: var(--rose-deep); }
+  .coord a, .coord__val { font-size: 1.02rem; color: var(--ink); text-decoration: none; }
+  .coord a:hover { color: var(--rose-deep); text-decoration: underline; }
 </style>
