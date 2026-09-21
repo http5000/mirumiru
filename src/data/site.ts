@@ -8,10 +8,10 @@ export const site = {
   siege: '3 rue Passet, 69007 Lyon',
 } as const
 
-/** Mentions légales — société éditrice. */
+/** Mentions légales : société éditrice. */
 export const societe = {
   raison: 'http5000',
-  forme: 'S.A.R.L. au capital de 15 000 €',
+  forme: 'S.A.S. au capital de 15 024 €',
   rcs: 'RCS Lyon 431 903 376',
   ape: '7311Z',
   tva: 'FR48431903376',

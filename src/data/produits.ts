@@ -14,7 +14,7 @@ export const parfums: Parfum[] = [
     nom: 'Fraise',
     couleur: 'var(--fraise)',
     image: '/img/produits/perles-fraise.jpg',
-    note: 'La valeur sûre. Ronde, sucrée, immédiatement reconnaissable — c’est le parfum qui fait entrer les nouveaux clients dans le bubble tea.',
+    note: 'La valeur sûre. Ronde, sucrée, immédiatement reconnaissable : c’est le parfum qui fait entrer les nouveaux clients dans le bubble tea.',
     accord: 'Thé au jasmin, thé vert, lait',
   },
   {
@@ -46,7 +46,7 @@ export const parfums: Parfum[] = [
     nom: 'Pomme verte',
     couleur: 'var(--pomme)',
     image: '/img/produits/perles-pomme-verte.jpg',
-    note: 'Vive et croquante en bouche. Son vert éclatant tranche avec les autres parfums — l’effet visuel est garanti.',
+    note: 'Vive et croquante en bouche. Son vert éclatant tranche avec les autres parfums : l’effet visuel est garanti.',
     accord: 'Thé vert, thé au jasmin, fraise',
   },
   {
@@ -103,12 +103,12 @@ export const packaging: Consommable[] = [
     nom: 'Machine à sceller manuelle',
     image: '/img/produits/machine-sceller.jpg',
     detail: 'Scellage en quelques secondes, jusqu’à 500 boissons par heure. Plateau réglable pour plusieurs formats.',
-    specs: ['Acier au carbone', 'Gobelets Ø 90 et 95 mm', '27 × 27 × 65 cm — 8,5 kg'],
+    specs: ['Acier au carbone', 'Gobelets Ø 90 et 95 mm', '27 × 27 × 65 cm, 8,5 kg'],
   },
   {
     nom: 'Pailles bambou emballées',
     image: '/img/produits/pailles-bambou.png',
     detail: 'Pailles larges 100 % biodégradables, emballées individuellement pour un service en salle irréprochable.',
-    specs: ['Ø 12 mm — 23 cm', 'Emballage individuel', 'Boissons froides'],
+    specs: ['Ø 12 mm, 23 cm', 'Emballage individuel', 'Boissons froides'],
   },
 ]

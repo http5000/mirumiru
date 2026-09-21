@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   )
 
   return rss({
-    title: 'MiruMiru — le journal',
+    title: 'MiruMiru, le journal',
     description:
       'Recettes de bubble tea, tendances du marché et conseils aux professionnels, par MiruMiru.',
     site: context.site!,

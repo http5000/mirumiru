@@ -45,8 +45,8 @@ const annee = new Date().getFullYear()
   </div>
 
   <div class="wrap pied__bas">
-    <p>© {annee} MiruMiru — tous droits réservés.</p>
-    <p class="pied__mention">Édité par http5000, Lyon.</p>
+    <p>© {annee} MiruMiru. Tous droits réservés.</p>
+    <p class="pied__mention">Réalisé par <a href="https://yumea.fr" target="_blank" rel="noopener">Yumea</a>.</p>
   </div>
 </footer>
 
@@ -72,4 +72,6 @@ const annee = new Date().getFullYear()
     font-size: .85rem; color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .pied__bas p { margin: 0; }
+  .pied__mention a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .pied__mention a:hover { color: var(--mango); }
 </style>

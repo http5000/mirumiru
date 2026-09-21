@@ -16,7 +16,7 @@ interface Props {
 const { title, description, image = '/img/brand/og.jpg', type = 'website', noindex = false } = Astro.props
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site ?? site.url).href
 const ogImage = new URL(image, Astro.site ?? site.url).href
-const titreComplet = title.includes(site.nom) ? title : `${title} — ${site.nom}`
+const titreComplet = title.includes(site.nom) ? title : `${title} · ${site.nom}`
 ---
 
 <!doctype html>
