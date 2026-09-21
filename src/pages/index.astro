@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro'
 import Marquee from '../components/Marquee.astro'
 import ParfumCarte from '../components/ParfumCarte.astro'
 import ArticleCarte from '../components/ArticleCarte.astro'
-import { parfums, packaging } from '../data/produits'
+import { parfums } from '../data/produits'
 import { site } from '../data/site'
 
 const articles = (await getCollection('blog'))
@@ -83,7 +83,7 @@ const schema = {
       '7 parfums',
       'Fabricant & importateur',
       'Une marque née près de Lyon',
-      'Gobelets scellables 360 · 500 · 700 ml',
+      'Disponible chez Metro',
     ]}
   />
 
@@ -135,36 +135,6 @@ const schema = {
           <span class="tuile-cta__titre">Les 7 parfums en détail</span>
           <span class="tuile-cta__plus">Composition, accords, conditionnement →</span>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PACKAGING ============ -->
-  <section class="section section--cream2">
-    <div class="wrap">
-      <div class="entete">
-        <div>
-          <p class="eyebrow">Autour de la perle</p>
-          <h2>Le nécessaire pour servir</h2>
-        </div>
-        <p class="lead">
-          Gobelets scellables, film, machine à sceller, pailles larges : les
-          consommables qui font qu’un bubble tea se sert vite et se transporte bien.
-        </p>
-      </div>
-
-      <div class="grid grid--3">
-        {packaging.slice(0, 3).map((c) => (
-          <article class="conso reveal">
-            <div class="conso__img"><img src={c.image} alt={c.nom} loading="lazy" width="400" height="400" /></div>
-            <h3>{c.nom}</h3>
-            <p>{c.detail}</p>
-          </article>
-        ))}
-      </div>
-
-      <div class="centre">
-        <a href="/packaging" class="btn btn--ghost">Tout le packaging</a>
       </div>
     </div>
   </section>
@@ -324,13 +294,6 @@ const schema = {
   .entete h2 { margin-bottom: 0; }
 
   .centre { display: flex; justify-content: center; margin-top: 2.8rem; }
-
-  /* ---- consommables ---- */
-  .conso { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; }
-  .conso__img { aspect-ratio: 1; margin: -1.6rem -1.6rem 1.2rem; background: var(--cream); overflow: hidden; }
-  .conso__img img { width: 100%; height: 100%; object-fit: cover; }
-  .conso h3 { font-size: 1.15rem; margin-bottom: .5rem; }
-  .conso p { font-size: .93rem; color: var(--ink-2); margin: 0; }
 
   .texte-long { font-size: 1.05rem; color: var(--ink-2); }
 

@@ -22,7 +22,6 @@ export const societe = {
 
 export const nav = [
   { href: '/perles-de-fruits', label: 'Perles de fruits' },
-  { href: '/packaging', label: 'Packaging' },
   { href: '/la-marque', label: 'La marque' },
   { href: '/ou-nous-trouver', label: 'Où nous trouver' },
   { href: '/blog', label: 'Blog' },
