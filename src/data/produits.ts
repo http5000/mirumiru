@@ -29,7 +29,9 @@ export type Parfum = {
   slug: string
   nom: string
   couleur: string
-  image: string
+  /** Photo détourée du seau ; absente tant qu'elle n'a pas été fournie
+   *  (la carte affiche alors une pastille de couleur). */
+  image?: string
   note: string
   accord: string
   /** Liste d'ingrédients complète (source fabricant Possmei). */
@@ -121,6 +123,33 @@ export const parfums: Parfum[] = [
     accord: 'Thé vert, citronnade, lait',
     ingredients:
       'Eau, fructose, lactate de calcium (E327), alginate de sodium (E401), acétate d’amidon (E1420), gomme xanthane (E415), acide DL-malique (E296), arôme framboise, sorbate de potassium (conservateur, E202), rouge allura AC (E129), bleu brillant FCF (E133).',
+  },
+  {
+    slug: 'cerise',
+    nom: 'Cerise',
+    couleur: 'var(--cerise)',
+    note: 'Gourmande et légèrement acidulée, la cerise joue la carte régressive. Un rouge profond qui habille joliment les thés au lait.',
+    accord: 'Thé noir, thé au lait, framboise',
+    ingredients:
+      'Eau, fructose, lactate de calcium (E327), alginate de sodium (E401), acétate d’amidon (E1420), gomme xanthane (E415), arôme cerise, acide DL-malique (E296), sorbate de potassium (conservateur, E202), rouge allura AC (E129), bleu brillant FCF (E133).',
+  },
+  {
+    slug: 'myrtille',
+    nom: 'Myrtille',
+    couleur: 'var(--myrtille)',
+    note: 'Sa teinte bleu-violet est rare et très photogénique. Douce et un brin sauvage, elle démarque une carte de bubble tea.',
+    accord: 'Thé vert, citronnade, lait',
+    ingredients:
+      'Eau, fructose, lactate de calcium (E327), alginate de sodium (E401), acétate d’amidon (E1420), gomme xanthane (E415), arôme myrtille, acide DL-malique (E296), sorbate de potassium (conservateur, E202), rouge allura AC (E129), bleu brillant FCF (E133).',
+  },
+  {
+    slug: 'grenade',
+    nom: 'Grenade',
+    couleur: 'var(--grenade)',
+    note: 'Fraîche et subtilement acidulée, la grenade apporte une touche originale et un rouge intense très recherché.',
+    accord: 'Thé vert, thé glacé, framboise',
+    ingredients:
+      'Eau, fructose, lactate de calcium (E327), alginate de sodium (E401), acétate d’amidon (E1420), gomme xanthane (E415), acide DL-malique (E296), arôme grenade, sorbate de potassium (conservateur, E202), rouge allura AC (E129).',
   },
 ]
 

@@ -59,7 +59,9 @@ const schema = {
           </div>
         </div>
         <div class="tete__visuel">
-          <img src={parfum.image} alt={`Seau de perles de fruits ${parfum.nom} MiruMiru`} width="520" height="520" fetchpriority="high" />
+          {parfum.image
+            ? <img src={parfum.image} alt={`Seau de perles de fruits ${parfum.nom} MiruMiru`} width="520" height="520" fetchpriority="high" />
+            : <span class="tete__pastille" aria-hidden="true"></span>}
         </div>
       </div>
     </div>
@@ -141,7 +143,9 @@ const schema = {
       <div class="autres">
         {autres.map((p) => (
           <a class="puce" href={`/perles-de-fruits/${p.slug}`} style={`--teinte:${p.couleur}`}>
-            <img src={p.image} alt={`Perles ${p.nom}`} loading="lazy" width="120" height="120" />
+            {p.image
+              ? <img src={p.image} alt={`Perles ${p.nom}`} loading="lazy" width="120" height="120" />
+              : <span class="puce__pastille" aria-hidden="true"></span>}
             <span>{p.nom}</span>
           </a>
         ))}
@@ -171,6 +175,7 @@ const schema = {
   .tete__visuel { position: relative; display: grid; place-items: center; aspect-ratio: 1; }
   .tete__visuel::after { content: ''; position: absolute; inset: 12% 12% auto 12%; height: 62%; border-radius: 50%; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--teinte) 34%, transparent), transparent 68%); }
   .tete__visuel img { position: relative; z-index: 1; width: 100%; max-width: 460px; height: auto; object-fit: contain; filter: drop-shadow(0 18px 26px rgba(0,0,0,.14)); }
+  .tete__pastille { position: relative; z-index: 1; width: 62%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--teinte) 55%, white), var(--teinte) 70%); box-shadow: inset 0 -16px 34px rgba(0,0,0,.2), 0 20px 34px color-mix(in srgb, var(--teinte) 40%, transparent); }
 
   /* ---- entêtes ---- */
   .entete-fiche { margin-bottom: 2rem; }
@@ -201,6 +206,7 @@ const schema = {
   .puce { display: flex; flex-direction: column; align-items: center; gap: .6rem; padding: 1.1rem .6rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
   .puce:hover { transform: translateY(-4px); border-color: var(--teinte); box-shadow: var(--shadow); }
   .puce img { width: 76px; height: 76px; object-fit: contain; }
+  .puce__pastille { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--teinte) 55%, white), var(--teinte) 70%); box-shadow: inset 0 -6px 12px rgba(0,0,0,.18); }
   .puce span { font-family: var(--font-display); font-weight: 600; font-size: .95rem; }
 
   .centre { display: flex; justify-content: center; margin-top: 2.5rem; }

@@ -5,7 +5,9 @@ const { parfum, detaille = false } = Astro.props
 ---
 <a class="parfum reveal" href={`/perles-de-fruits/${parfum.slug}`} style={`--teinte:${parfum.couleur}`}>
   <div class="parfum__visuel">
-    <img src={parfum.image} alt={`Perles de fruits ${parfum.nom} MiruMiru`} loading="lazy" width="420" height="420" />
+    {parfum.image
+      ? <img src={parfum.image} alt={`Perles de fruits ${parfum.nom} MiruMiru`} loading="lazy" width="420" height="420" />
+      : <span class="parfum__pastille" aria-hidden="true"></span>}
   </div>
   <div class="parfum__texte">
     <h3 class="parfum__nom">{parfum.nom}</h3>
@@ -26,6 +28,7 @@ const { parfum, detaille = false } = Astro.props
   .parfum:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: var(--teinte); }
   .parfum__visuel {
     position: relative; aspect-ratio: 1; overflow: hidden;
+    display: grid; place-items: center;
     background: var(--paper);
   }
   .parfum__visuel::after {
@@ -33,6 +36,7 @@ const { parfum, detaille = false } = Astro.props
     background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--teinte) 26%, transparent), transparent 70%);
   }
   .parfum__visuel img { width: 100%; height: 100%; object-fit: contain; padding: 12%; position: relative; z-index: 1; }
+  .parfum__pastille { position: relative; z-index: 1; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--teinte) 55%, white), var(--teinte) 70%); box-shadow: inset 0 -10px 22px rgba(0,0,0,.18), 0 12px 22px color-mix(in srgb, var(--teinte) 40%, transparent); }
   .parfum__texte { padding: 1.35rem 1.5rem 1.6rem; border-top: 3px solid var(--teinte); }
   .parfum__nom { font-size: 1.35rem; margin-bottom: .45rem; color: var(--ink); }
   .parfum__note { font-size: .95rem; color: var(--ink-2); margin-bottom: .9rem; line-height: 1.55; }
