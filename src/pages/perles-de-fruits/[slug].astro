@@ -1,0 +1,212 @@
+---
+import Base from '../../layouts/Base.astro'
+import { parfums, ficheProduit } from '../../data/produits'
+import { site } from '../../data/site'
+
+export function getStaticPaths() {
+  return parfums.map((parfum) => ({
+    params: { slug: parfum.slug },
+    props: { parfum },
+  }))
+}
+
+const { parfum } = Astro.props
+const autres = parfums.filter((p) => p.slug !== parfum.slug)
+
+// Colorants azoïques à mention réglementaire (UE) : E102, E129 (E133 non concerné)
+const mentionColorant = /E102|E129/.test(parfum.ingredients)
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `Popping boba ${parfum.nom} — MiruMiru`,
+  image: new URL(parfum.image, site.url).href,
+  brand: { '@type': 'Brand', name: 'MiruMiru' },
+  category: 'Perles de fruits pour bubble tea',
+  description: `Perles de fruits (popping boba) parfum ${parfum.nom} pour bubble tea. ${parfum.note}`,
+  countryOfOrigin: 'TW',
+}
+---
+
+<Base
+  title={`Popping boba ${parfum.nom} : perles de fruits pour bubble tea`}
+  description={`Perles de fruits ${parfum.nom} MiruMiru (popping boba) : ingrédients, conservation et conditionnement. Seau professionnel de 3,1 kg, disponible chez Metro.`}
+  image={parfum.image}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <!-- ============ HERO ============ -->
+  <section class="tete" style={`--teinte:${parfum.couleur}`}>
+    <div class="wrap">
+      <nav class="fil" aria-label="Fil d’Ariane">
+        <a href="/">Accueil</a>
+        <span aria-hidden="true">›</span>
+        <a href="/perles-de-fruits">Perles de fruits</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{parfum.nom}</span>
+      </nav>
+
+      <div class="tete__grille">
+        <div class="tete__texte">
+          <p class="eyebrow">Popping boba</p>
+          <h1>{parfum.nom}</h1>
+          <p class="lead">{parfum.note}</p>
+          <p class="tete__accord"><span>S’accorde avec</span>{parfum.accord}</p>
+          <div class="tete__actions">
+            <a href="/ou-nous-trouver" class="btn btn--primary">Disponible chez Metro</a>
+            <a href="/contact" class="btn btn--ghost">Demander la fiche technique</a>
+          </div>
+        </div>
+        <div class="tete__visuel">
+          <img src={parfum.image} alt={`Seau de perles de fruits ${parfum.nom} MiruMiru`} width="520" height="520" fetchpriority="high" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FICHE ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="entete-fiche">
+        <p class="eyebrow">Fiche produit</p>
+        <h2>Le seau {parfum.nom} en un coup d’œil</h2>
+      </div>
+      <dl class="specs">
+        <div><dt>Conditionnement</dt><dd>Seau de 3,1 kg</dd></div>
+        <div><dt>Net égoutté</dt><dd>2,2 kg</dd></div>
+        <div><dt>Carton</dt><dd>4 seaux</dd></div>
+        <div><dt>Origine</dt><dd>{ficheProduit.origine}</dd></div>
+        <div><dt>Conservation avant ouverture</dt><dd>Endroit frais et sec, 0 à 35 °C</dd></div>
+        <div><dt>Après ouverture</dt><dd>Au réfrigérateur, à consommer rapidement</dd></div>
+        <div><dt>DLC</dt><dd>18 mois (date sur l’emballage)</dd></div>
+        <div><dt>Usage</dt><dd>Prêt à l’emploi, une cuillère par boisson</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ INGRÉDIENTS ============ -->
+  <section class="section section--paper">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Composition</p>
+      <h2>Ingrédients</h2>
+      <p class="ingredients">{parfum.ingredients}</p>
+      <ul class="tags">
+        <li>Sans gluten</li>
+        <li>Compatible recettes véganes</li>
+        <li>Origine {ficheProduit.origine}</li>
+      </ul>
+      {mentionColorant && (
+        <p class="avert">
+          Contient des colorants : peut avoir des effets indésirables sur
+          l’activité et l’attention chez les enfants.
+        </p>
+      )}
+      <p class="note">
+        Allergènes, composition détaillée et étiquetage complet font foi sur la
+        fiche technique et l’emballage, disponibles sur demande.
+        {ficheProduit.avertissement}
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ NUTRITION ============ -->
+  <section class="section">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Valeurs nutritionnelles</p>
+      <h2>Pour 100 g</h2>
+      {parfum.nutrition ? (
+        <table class="nutri">
+          <tbody>
+            {parfum.nutrition.energieKj && <tr><th>Énergie</th><td>{parfum.nutrition.energieKj} / {parfum.nutrition.energieKcal}</td></tr>}
+            {parfum.nutrition.matieresGrasses && <tr><th>Matières grasses</th><td>{parfum.nutrition.matieresGrasses}</td></tr>}
+            {parfum.nutrition.acidesGrasSatures && <tr><th class="sub">dont acides gras saturés</th><td>{parfum.nutrition.acidesGrasSatures}</td></tr>}
+            {parfum.nutrition.glucides && <tr><th>Glucides</th><td>{parfum.nutrition.glucides}</td></tr>}
+            {parfum.nutrition.sucres && <tr><th class="sub">dont sucres</th><td>{parfum.nutrition.sucres}</td></tr>}
+            {parfum.nutrition.proteines && <tr><th>Protéines</th><td>{parfum.nutrition.proteines}</td></tr>}
+            {parfum.nutrition.sel && <tr><th>Sel</th><td>{parfum.nutrition.sel}</td></tr>}
+          </tbody>
+        </table>
+      ) : (
+        <p class="note">
+          Le tableau nutritionnel détaillé (énergie, sucres, etc.) est disponible
+          sur la fiche technique. Nous l’ajoutons ici très prochainement — en
+          attendant, écrivez-nous et nous vous l’envoyons.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- ============ AUTRES PARFUMS ============ -->
+  <section class="section section--cream2">
+    <div class="wrap">
+      <div class="entete-fiche">
+        <p class="eyebrow">La gamme</p>
+        <h2>Les autres parfums</h2>
+      </div>
+      <div class="autres">
+        {autres.map((p) => (
+          <a class="puce" href={`/perles-de-fruits/${p.slug}`} style={`--teinte:${p.couleur}`}>
+            <img src={p.image} alt={`Perles ${p.nom}`} loading="lazy" width="120" height="120" />
+            <span>{p.nom}</span>
+          </a>
+        ))}
+      </div>
+      <div class="centre">
+        <a href="/perles-de-fruits" class="btn btn--ghost">Voir toute la gamme</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- hero ---- */
+  .tete { position: relative; overflow: hidden; background: var(--cream-2); padding: 1.5rem 0 clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+  .fil { font-size: .85rem; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1.8rem; }
+  .fil a { color: var(--ink-3); text-decoration: none; }
+  .fil a:hover { color: var(--rose-deep); text-decoration: underline; }
+  .fil [aria-current] { color: var(--ink); }
+
+  .tete__grille { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 860px) { .tete__grille { grid-template-columns: 1fr; } }
+  .tete h1 { margin-bottom: .8rem; }
+  .tete__accord { margin: 1.4rem 0 0; font-size: .95rem; color: var(--ink-2); }
+  .tete__accord span { display: block; font-family: var(--font-display); font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--teinte); margin-bottom: .2rem; }
+  .tete__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1.8rem; }
+
+  .tete__visuel { position: relative; display: grid; place-items: center; aspect-ratio: 1; }
+  .tete__visuel::after { content: ''; position: absolute; inset: 12% 12% auto 12%; height: 62%; border-radius: 50%; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--teinte) 34%, transparent), transparent 68%); }
+  .tete__visuel img { position: relative; z-index: 1; width: 100%; max-width: 460px; height: auto; object-fit: contain; filter: drop-shadow(0 18px 26px rgba(0,0,0,.14)); }
+
+  /* ---- entêtes ---- */
+  .entete-fiche { margin-bottom: 2rem; }
+  .entete-fiche h2 { margin: 0; }
+
+  /* ---- specs ---- */
+  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .specs > div { background: var(--paper); padding: 1.25rem 1.35rem; }
+  .specs dt { font-family: var(--font-display); font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: .35rem; }
+  .specs dd { margin: 0; font-size: 1rem; color: var(--ink); }
+
+  /* ---- ingrédients ---- */
+  .ingredients { font-size: 1.05rem; color: var(--ink-2); line-height: 1.65; }
+  .tags { list-style: none; margin: 1.4rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+  .tags li { font-size: .85rem; font-weight: 600; color: var(--ink-2); background: var(--cream-2); border: 1px solid var(--line); border-radius: var(--radius-pill); padding: .4rem .9rem; }
+  .avert { margin-top: 1.4rem; font-size: .92rem; color: var(--ink); background: color-mix(in srgb, var(--mango) 16%, var(--cream)); border-left: 3px solid var(--mango); padding: .9rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; }
+  .note { margin-top: 1.4rem; font-size: .92rem; color: var(--ink-3); border-left: 3px solid var(--line); padding-left: 1rem; }
+
+  /* ---- nutrition ---- */
+  .nutri { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: 1rem; }
+  .nutri th, .nutri td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid var(--line); }
+  .nutri th { font-weight: 600; color: var(--ink); }
+  .nutri th.sub { font-weight: 400; color: var(--ink-3); padding-left: 2rem; }
+  .nutri td { text-align: right; color: var(--ink-2); }
+
+  /* ---- autres parfums ---- */
+  .autres { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+  .puce { display: flex; flex-direction: column; align-items: center; gap: .6rem; padding: 1.1rem .6rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .puce:hover { transform: translateY(-4px); border-color: var(--teinte); box-shadow: var(--shadow); }
+  .puce img { width: 76px; height: 76px; object-fit: contain; }
+  .puce span { font-family: var(--font-display); font-weight: 600; font-size: .95rem; }
+
+  .centre { display: flex; justify-content: center; margin-top: 2.5rem; }
+</style>

@@ -3,7 +3,7 @@ import type { Parfum } from '../data/produits'
 interface Props { parfum: Parfum; detaille?: boolean }
 const { parfum, detaille = false } = Astro.props
 ---
-<article class="parfum reveal" style={`--teinte:${parfum.couleur}`}>
+<a class="parfum reveal" href={`/perles-de-fruits/${parfum.slug}`} style={`--teinte:${parfum.couleur}`}>
   <div class="parfum__visuel">
     <img src={parfum.image} alt={`Perles de fruits ${parfum.nom} MiruMiru`} loading="lazy" width="420" height="420" />
   </div>
@@ -11,14 +11,16 @@ const { parfum, detaille = false } = Astro.props
     <h3 class="parfum__nom">{parfum.nom}</h3>
     {detaille && <p class="parfum__note">{parfum.note}</p>}
     <p class="parfum__accord"><span>S’accorde avec</span> {parfum.accord}</p>
+    <span class="parfum__lien">Voir la fiche&nbsp;→</span>
   </div>
-</article>
+</a>
 
 <style>
   .parfum {
     background: var(--paper); border: 1px solid var(--line);
     border-radius: var(--radius-lg); overflow: hidden;
     display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
   .parfum:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: var(--teinte); }
@@ -40,4 +42,10 @@ const { parfum, detaille = false } = Astro.props
     font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
     color: var(--teinte); margin-bottom: .15rem;
   }
+  .parfum__lien {
+    display: inline-block; margin-top: 1rem;
+    font-family: var(--font-display); font-weight: 600; font-size: .9rem;
+    color: var(--rose-deep);
+  }
+  .parfum:hover .parfum__lien { text-decoration: underline; }
 </style>
