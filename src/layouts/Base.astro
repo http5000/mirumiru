@@ -30,6 +30,15 @@ const titreComplet = title.includes(site.nom) ? title : `${title} · ${site.nom}
     {!indexable
       ? <meta name="robots" content="noindex, nofollow" />
       : noindex && <meta name="robots" content="noindex, follow" />}
+    <script is:inline>
+      // L'URL de travail *.pages.dev ne doit jamais être indexée : seul
+      // mirumiru-pro.com est le domaine de référence (évite le contenu dupliqué).
+      if (location.hostname.endsWith('.pages.dev')) {
+        var m = document.createElement('meta')
+        m.name = 'robots'; m.content = 'noindex, nofollow'
+        document.head.appendChild(m)
+      }
+    </script>
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/img/brand/icone-512.png" />
