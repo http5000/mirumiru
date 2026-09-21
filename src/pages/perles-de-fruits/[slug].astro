@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro'
-import { parfums, ficheProduit } from '../../data/produits'
+import { parfums, ficheProduit, nutritionCommune } from '../../data/produits'
 import { site } from '../../data/site'
 
 export function getStaticPaths() {
@@ -12,6 +12,7 @@ export function getStaticPaths() {
 
 const { parfum } = Astro.props
 const autres = parfums.filter((p) => p.slug !== parfum.slug)
+const nutrition = parfum.nutrition ?? nutritionCommune
 
 // Colorants azoïques à mention réglementaire (UE) : E102, E129 (E133 non concerné)
 const mentionColorant = /E102|E129/.test(parfum.ingredients)
@@ -114,25 +115,19 @@ const schema = {
     <div class="wrap-narrow">
       <p class="eyebrow">Valeurs nutritionnelles</p>
       <h2>Pour 100 g</h2>
-      {parfum.nutrition ? (
-        <table class="nutri">
-          <tbody>
-            {parfum.nutrition.energieKj && <tr><th>Énergie</th><td>{parfum.nutrition.energieKj} / {parfum.nutrition.energieKcal}</td></tr>}
-            {parfum.nutrition.matieresGrasses && <tr><th>Matières grasses</th><td>{parfum.nutrition.matieresGrasses}</td></tr>}
-            {parfum.nutrition.acidesGrasSatures && <tr><th class="sub">dont acides gras saturés</th><td>{parfum.nutrition.acidesGrasSatures}</td></tr>}
-            {parfum.nutrition.glucides && <tr><th>Glucides</th><td>{parfum.nutrition.glucides}</td></tr>}
-            {parfum.nutrition.sucres && <tr><th class="sub">dont sucres</th><td>{parfum.nutrition.sucres}</td></tr>}
-            {parfum.nutrition.proteines && <tr><th>Protéines</th><td>{parfum.nutrition.proteines}</td></tr>}
-            {parfum.nutrition.sel && <tr><th>Sel</th><td>{parfum.nutrition.sel}</td></tr>}
-          </tbody>
-        </table>
-      ) : (
-        <p class="note">
-          Le tableau nutritionnel détaillé (énergie, sucres, etc.) est disponible
-          sur la fiche technique. Nous l’ajoutons ici très prochainement — en
-          attendant, écrivez-nous et nous vous l’envoyons.
-        </p>
-      )}
+      <table class="nutri">
+        <tbody>
+          <tr><th>Énergie</th><td>{nutrition.energieKj} / {nutrition.energieKcal}</td></tr>
+          <tr><th>Matières grasses</th><td>{nutrition.matieresGrasses}</td></tr>
+          <tr><th class="sub">dont acides gras saturés</th><td>{nutrition.acidesGrasSatures}</td></tr>
+          <tr><th>Glucides</th><td>{nutrition.glucides}</td></tr>
+          <tr><th class="sub">dont sucres</th><td>{nutrition.sucres}</td></tr>
+          <tr><th>Fibres alimentaires</th><td>{nutrition.fibres}</td></tr>
+          <tr><th>Protéines</th><td>{nutrition.proteines}</td></tr>
+          <tr><th>Sel</th><td>{nutrition.sel}</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Valeurs moyennes, identiques pour tous les parfums de la gamme.</p>
     </div>
   </section>
 

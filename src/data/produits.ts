@@ -7,8 +7,22 @@ export type Nutrition = {
   acidesGrasSatures?: string
   glucides?: string
   sucres?: string
+  fibres?: string
   proteines?: string
   sel?: string
+}
+
+/** Valeurs nutritionnelles pour 100 g, communes à toute la gamme popping boba. */
+export const nutritionCommune: Nutrition = {
+  energieKj: '419 kJ',
+  energieKcal: '100 kcal',
+  matieresGrasses: '0,0 g',
+  acidesGrasSatures: '0,0 g',
+  glucides: '25,0 g',
+  sucres: '24,0 g',
+  fibres: '0 g',
+  proteines: '0 g',
+  sel: '0 g',
 }
 
 export type Parfum = {
