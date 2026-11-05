@@ -17,7 +17,7 @@ const schema = {
   name: 'MiruMiru',
   url: site.url,
   logo: `${site.url}/img/brand/icone-512.png`,
-  description: 'Marque française de perles de fruits (popping boba) et de consommables pour bubble tea.',
+  description: 'Marque française de popping boba (perles de fruits) et de consommables pour bubble tea, distribuée chez Metro.',
   telephone: site.tel,
   email: site.email,
   address: {
@@ -31,10 +31,11 @@ const schema = {
 ---
 
 <Base
-  title="MiruMiru, perles de fruits & bubble tea"
-  description="MiruMiru, marque française de perles de fruits (popping boba) pour bubble tea : 7 parfums, gobelets scellables et consommables. Fabricant et importateur près de Lyon."
+  title="MiruMiru : popping boba et perles de fruits pour bubble tea"
+  description="MiruMiru, marque lyonnaise de popping boba pour bubble tea : parfums fruités, couleurs éclatantes, seau pro de 3,1 kg disponible chez Metro, et consommables."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'MiruMiru', url: site.url, inLanguage: 'fr-FR' })} />
 
   <!-- ============ HERO ============ -->
   <section class="hero">
@@ -56,11 +57,11 @@ const schema = {
         </h1>
         <p class="lead">
           MiruMiru fabrique et importe le popping boba qui colore les bubble teas
-          des professionnels français. Sept parfums, un éclat fruité à chaque
+          des professionnels français. Des parfums fruités, un éclat de saveur à chaque
           bille, et vingt ans de métier derrière chaque seau.
         </p>
         <div class="hero__actions">
-          <a href="/perles-de-fruits" class="btn btn--primary">Découvrir les 7 parfums</a>
+          <a href="/perles-de-fruits" class="btn btn--primary">Découvrir les parfums</a>
           <a href="/ou-nous-trouver" class="btn btn--ghost">Où nous trouver</a>
         </div>
       </div>
@@ -80,7 +81,7 @@ const schema = {
   <Marquee
     items={[
       'Popping boba aux saveurs fruitées',
-      '7 parfums',
+      'Parfums fruités & couleurs vives',
       'Fabricant & importateur',
       'Une marque née près de Lyon',
       'Disponible chez Metro',
@@ -119,7 +120,7 @@ const schema = {
       <div class="entete">
         <div>
           <p class="eyebrow">La gamme</p>
-          <h2>Sept parfums, sept couleurs</h2>
+          <h2>Des parfums, des couleurs</h2>
         </div>
         <p class="lead">
           Chaque parfum a sa personnalité et sa teinte. Ensemble, ils composent
@@ -133,7 +134,7 @@ const schema = {
           <span class="tuile-cta__pastilles" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
-          <span class="tuile-cta__titre">Les 7 parfums en détail</span>
+          <span class="tuile-cta__titre">Tous les parfums en détail</span>
           <span class="tuile-cta__plus">Composition, accords, conditionnement →</span>
         </a>
       </div>

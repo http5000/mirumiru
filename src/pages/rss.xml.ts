@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
 import type { APIContext } from 'astro'
+import { metaDescription } from '../lib/seo'
 
 export async function GET(context: APIContext) {
   const articles = (await getCollection('blog')).sort(
@@ -15,7 +16,7 @@ export async function GET(context: APIContext) {
     trailingSlash: false,
     items: articles.map((a) => ({
       title: a.data.title,
-      description: a.data.description,
+      description: metaDescription(a.data.description, 300),
       pubDate: a.data.pubDate,
       link: `/blogs/infos/${a.id}`,
     })),

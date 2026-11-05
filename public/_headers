@@ -13,3 +13,13 @@
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# URL de travail Cloudflare : jamais indexée (mirumiru-pro.com reste le seul domaine de référence)
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+/favicon.ico
+  Cache-Control: public, max-age=604800

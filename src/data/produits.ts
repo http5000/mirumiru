@@ -52,7 +52,7 @@ export const ficheProduit = {
     'Petites billes : ne pas donner aux enfants de moins de 3 ans. De 4 à 7 ans, sous la surveillance d’un adulte.',
 } as const
 
-/** Les 7 parfums de popping boba MiruMiru. */
+/** Les parfums de popping boba MiruMiru. */
 export const parfums: Parfum[] = [
   {
     slug: 'fraise',

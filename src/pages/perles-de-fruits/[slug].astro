@@ -27,6 +27,16 @@ const schema = {
   description: `Perles de fruits (popping boba) parfum ${parfum.nom} pour bubble tea. ${parfum.note}`,
   countryOfOrigin: 'TW',
 }
+
+const fil = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Perles de fruits', item: `${site.url}/perles-de-fruits` },
+    { '@type': 'ListItem', position: 3, name: parfum.nom, item: `${site.url}/perles-de-fruits/${parfum.slug}` },
+  ],
+}
 ---
 
 <Base
@@ -35,6 +45,7 @@ const schema = {
   image={parfum.image}
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(fil)} />
 
   <!-- ============ HERO ============ -->
   <section class="tete" style={`--teinte:${parfum.couleur}`}>
