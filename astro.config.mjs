@@ -15,5 +15,5 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
-  build: { format: 'directory' },
+  build: { format: 'file' },
 })
