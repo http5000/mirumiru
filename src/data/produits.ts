@@ -194,7 +194,7 @@ export const packaging: Consommable[] = [
   {
     nom: 'Pailles bambou emballées',
     image: '/img/produits/pailles-bambou.png',
-    detail: 'Pailles larges 100 % biodégradables, emballées individuellement pour un service en salle irréprochable.',
+    detail: 'Pailles larges en bambou, emballées individuellement pour un service en salle irréprochable.',
     specs: ['Ø 12 mm, 23 cm', 'Emballage individuel', 'Boissons froides'],
   },
 ]
