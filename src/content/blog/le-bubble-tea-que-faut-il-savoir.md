@@ -26,7 +26,7 @@ La consommation de cette boisson s’est étendue aux grandes villes européenne
 
 La concurrence entre les boutiques du Boba Tea est si rude que l’on assiste constamment à la naissance de recettes excentriques avec des combinaisons d’originales saveurs ou de colorants. Ceci, grâce à Internet et ses outils de marketing (réseaux sociaux et marketing digital).
 
-Notons également l’apparition des « Popping Boba ». Il s’agit de perles gorgées de jus de fruits et servant à préparer des thés aux bulles aux diverses saveurs (pomme, kiwi, fruit de la passion, fraise, cerise, etc.).
+Notons également l’apparition des « Popping Boba ». Il s’agit de perles au cœur liquide aromatisé, servant à préparer des thés aux bulles aux diverses saveurs (pomme, kiwi, fruit de la passion, fraise, cerise, etc.).
 
 Même l’usage des perles a aussi évolué. En effet, elles sont également utilisées dans diverses boissons (cocktails alcoolisés ou non et limonades). On les retrouve également dans les préparations culinaires salées et sucrées (sandwich, desserts, pizza, soupe, etc.). Elles sont même présentes dans les produits cosmétiques.
 

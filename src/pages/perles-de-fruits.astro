@@ -7,13 +7,13 @@ import { parfums } from '../data/produits'
 
 <Base
   title="Perles de fruits : les 7 parfums MiruMiru"
-  description="Popping boba MiruMiru : fraise, mangue, litchi, fruit de la passion, pomme verte, pêche et framboise. Perles de jus de fruits pour bubble tea, en seau de 3,1 kg."
+  description="Popping boba MiruMiru : fraise, mangue, litchi, fruit de la passion, pomme verte, pêche et framboise. Popping boba aux saveurs fruitées et aux couleurs vives pour bubble tea, en seau de 3,1 kg."
   image="/img/produits/perles-fraise.webp"
 >
   <EnteteePage
     eyebrow="La gamme"
     titre="Sept parfums de perles de fruits"
-    intro="Le popping boba MiruMiru est fabriqué à partir de jus de fruits. Une membrane fine, un cœur liquide, et une couleur qui vient du fruit lui-même. Voici la gamme complète, avec les accords qui fonctionnent le mieux en boutique."
+    intro="Les popping bobas MiruMiru associent une fine membrane végétale à un cœur liquide aromatisé. Une gamme de parfums fruités et de couleurs variées pour les professionnels du bubble tea, avec les accords qui fonctionnent le mieux en boutique."
   />
 
   <section class="section">
@@ -57,15 +57,17 @@ import { parfums } from '../data/produits'
       <h2>Ce que contient une perle</h2>
       <div class="texte-long">
         <p>
-          Eau, sucre, amidon modifié de maïs, épaississant (xanthane), gélifiant
-          (alginate de sodium), raffermissants (lactate de calcium, chlorure de
-          calcium), acidifiant (acide citrique), conservateurs (sorbate de
-          potassium, benzoate de sodium), concentrés de fruits et de plantes pour
-          la couleur, arôme.
+          Chaque parfum a sa propre liste d’ingrédients, reprise de la fiche
+          fabricant sur sa fiche produit. Toutes partagent une base d’eau et de
+          fructose, une membrane gélifiée à l’alginate de sodium et au lactate de
+          calcium, et l’arôme du parfum ; selon le parfum, des colorants
+          apportent la teinte.
         </p>
+        <ul class="liens-parfums">
+          {parfums.map((p) => <li><a href={`/perles-de-fruits/${p.slug}`}>{p.nom}</a></li>)}
+        </ul>
         <p class="note">
-          La composition exacte et les allergènes varient légèrement d’un parfum
-          à l’autre. Les fiches techniques et les étiquetages complets sont
+          Les fiches techniques et les étiquetages complets font foi et sont
           disponibles sur demande : écrivez-nous, on vous les envoie.
         </p>
       </div>
@@ -86,6 +88,9 @@ import { parfums } from '../data/produits'
   .specs dd { margin: 0; font-size: 1.02rem; color: var(--ink); }
 
   .texte-long { font-size: 1.03rem; color: var(--ink-2); }
+  .liens-parfums { list-style: none; padding: 0; margin: 1.2rem 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .liens-parfums a { display: inline-block; padding: .35rem .85rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink); text-decoration: none; font-size: .95rem; }
+  .liens-parfums a:hover { border-color: var(--rose); color: var(--rose-deep); }
 
   .tuile-cta {
     display: flex; flex-direction: column; justify-content: center;

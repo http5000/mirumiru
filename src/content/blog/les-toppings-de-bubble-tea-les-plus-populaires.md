@@ -24,7 +24,7 @@ Les jellys sont des cubes de gelée de fruits qui peuvent être ajoutés au bubb
 
 ## Les perles de fruits :
 
-Les perles de fruits sont des billes gélatineuses et translucides remplies de jus de fruits. Elles sont très souvent ajoutées au bubble tea. Les perles de fruits sont également disponibles dans une variété de saveurs, telles que la mangue, la fraise, la pomme et bien d'autres.
+Les perles de fruits sont des billes souples et translucides au cœur liquide aromatisé. Elles sont très souvent ajoutées au bubble tea. Les perles de fruits sont également disponibles dans une variété de saveurs, telles que la mangue, la fraise, la pomme et bien d'autres.
 
 ![](/img/blog/sans_titre_34_ac32af5f-b7df-4bfe-9f6d-9e5a39cec281-782dac.png)
 

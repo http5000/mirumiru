@@ -24,7 +24,7 @@ La majorité des arômes et sirops utilisés pour parfumer le bubble tea sont à
 
 ### Les Toppings Supplémentaires
 
-Les toppings comme les jellies ou popping boba (à base de fruits, d'agar-agar, etc.) sont généralement vegan, mais d'autres, comme les crèmes fouettées ou certains types de perles, peuvent contenir des produits laitiers ou d'autres ingrédients d'origine animale. Encore une fois, l'astuce est de demander des précisions avant de faire son choix.
+Les toppings comme les jellies ou popping boba (souvent gélifiés avec de l'agar-agar ou de l'alginate) sont généralement vegan, mais d'autres, comme les crèmes fouettées ou certains types de perles, peuvent contenir des produits laitiers ou d'autres ingrédients d'origine animale. Encore une fois, l'astuce est de demander des précisions avant de faire son choix.
 
 ### En Conclusion
 

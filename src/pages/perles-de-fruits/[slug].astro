@@ -21,7 +21,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: `Popping boba ${parfum.nom} — MiruMiru`,
-  image: new URL(parfum.image, site.url).href,
+  ...(parfum.image ? { image: new URL(parfum.image, site.url).href } : {}),
   brand: { '@type': 'Brand', name: 'MiruMiru' },
   category: 'Perles de fruits pour bubble tea',
   description: `Perles de fruits (popping boba) parfum ${parfum.nom} pour bubble tea. ${parfum.note}`,

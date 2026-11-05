@@ -14,7 +14,7 @@ Les perles de tapioca, ou "boba", sont sans doute le topping le plus emblématiq
 
 ### Les Popping Boba : L'Explosion de Saveur
 
-Les popping boba sont de petites sphères remplies de jus de fruit qui éclatent en bouche, libérant une explosion de saveur. Fabriquées à partir d'alginate de sodium et de jus de fruits, elles ajoutent non seulement une dimension gustative mais aussi ludique à la boisson. Disponibles dans une multitude de saveurs comme la mangue, la fraise, ou la passion, elles permettent une personnalisation poussée de votre bubble tea.
+Les popping boba sont de petites sphères au cœur liquide aromatisé qui éclatent en bouche, libérant une explosion de saveur. Leur fine membrane est formée grâce à l'alginate de sodium ; elles ajoutent non seulement une dimension gustative mais aussi ludique à la boisson. Disponibles dans une multitude de saveurs comme la mangue, la fraise, ou la passion, elles permettent une personnalisation poussée de votre bubble tea.
 
 ### Les Jelly : La Douceur Gélifiée
 
