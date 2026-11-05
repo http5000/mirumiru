@@ -27,6 +27,16 @@ const schema = {
     addressLocality: 'Lyon',
     addressCountry: 'FR',
   },
+  areaServed: ['FR', 'EU'],
+  knowsAbout: ['popping boba', 'perles de fruits', 'bubble tea', 'gobelets scellables'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: site.tel,
+    email: site.email,
+    availableLanguage: ['fr'],
+    url: `${site.url}/contact`,
+  },
 }
 ---
 

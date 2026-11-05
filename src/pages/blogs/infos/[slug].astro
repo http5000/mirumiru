@@ -27,21 +27,53 @@ const dateFr = article.data.pubDate.toLocaleDateString('fr-FR', {
 
 const description = metaDescription(article.data.description)
 
+const url = `${site.url}/blogs/infos/${article.id}`
+const redaction = /mirumiru/i.test(article.data.author)
+const { resume, faq = [], sources = [], coverAlt, updated } = article.data
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: article.data.title,
   description,
+  inLanguage: 'fr-FR',
   datePublished: dateISO,
-  author: { '@type': 'Person', name: article.data.author },
+  dateModified: (updated ?? article.data.pubDate).toISOString(),
+  author: redaction
+    ? { '@type': 'Organization', name: 'MiruMiru', url: site.url }
+    : { '@type': 'Person', name: article.data.author },
   publisher: {
     '@type': 'Organization',
     name: 'MiruMiru',
     logo: { '@type': 'ImageObject', url: `${site.url}/img/brand/icone-512.png` },
   },
-  mainEntityOfPage: `${site.url}/blogs/infos/${article.id}`,
+  mainEntityOfPage: url,
+  ...(resume ? { abstract: resume } : {}),
+  ...(sources.length ? { citation: sources.map((s) => s.url) } : {}),
   ...(article.data.cover ? { image: `${site.url}${article.data.cover}` } : {}),
 }
+
+const fil = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.url}/blog` },
+    { '@type': 'ListItem', position: 3, name: article.data.title, item: url },
+  ],
+}
+
+const faqSchema = faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((x) => ({
+        '@type': 'Question',
+        name: x.q,
+        acceptedAnswer: { '@type': 'Answer', text: x.r },
+      })),
+    }
+  : null
 ---
 
 <Base
@@ -51,6 +83,8 @@ const schema = {
   type="article"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(fil)} />
+  {faqSchema && <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />}
 
   <article>
     <header class="tete-art">
@@ -67,14 +101,43 @@ const schema = {
 
     {article.data.cover && (
       <div class="wrap couverture">
-        <img src={article.data.cover} alt="" width="1200" height="700" fetchpriority="high" />
+        <img src={article.data.cover} alt={coverAlt ?? ''} width="1200" height="700" fetchpriority="high" />
       </div>
     )}
 
     <div class="wrap-narrow corps">
+      {resume && (
+        <aside class="en-bref" aria-label="En bref">
+          <p class="en-bref__titre">En bref</p>
+          <p>{resume}</p>
+        </aside>
+      )}
       <div class="prose">
         <Content />
       </div>
+
+      {faq.length > 0 && (
+        <section class="faq-art" aria-labelledby="faq-titre">
+          <h2 id="faq-titre">Questions fréquentes</h2>
+          {faq.map((x) => (
+            <details>
+              <summary>{x.q}</summary>
+              <p>{x.r}</p>
+            </details>
+          ))}
+        </section>
+      )}
+
+      {sources.length > 0 && (
+        <section class="sources" aria-labelledby="sources-titre">
+          <h2 id="sources-titre">Sources</h2>
+          <ol>
+            {sources.map((s) => (
+              <li><a href={s.url} rel="noopener nofollow" target="_blank">{s.titre}</a></li>
+            ))}
+          </ol>
+        </section>
+      )}
     </div>
   </article>
 
@@ -122,6 +185,20 @@ const schema = {
   .couverture img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
 
   .corps { padding-bottom: clamp(3rem, 6vw, 5rem); }
+
+  .en-bref { background: var(--cream-2); border-left: 4px solid var(--rose); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.1rem 1.4rem; margin-bottom: 2.2rem; font-size: 1.04rem; color: var(--ink); }
+  .en-bref p { margin: 0; }
+  .en-bref__titre { font-family: var(--font-display); font-weight: 600; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: .35rem !important; }
+
+  .faq-art, .sources { margin-top: 3rem; }
+  .faq-art h2, .sources h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin-bottom: 1rem; }
+  .faq-art details { border-top: 1px solid var(--line); padding: .9rem 0; }
+  .faq-art details:last-child { border-bottom: 1px solid var(--line); }
+  .faq-art summary { cursor: pointer; font-family: var(--font-display); font-weight: 600; color: var(--ink); }
+  .faq-art details p { margin: .6rem 0 0; color: var(--ink-2); }
+  .sources ol { padding-left: 1.3em; font-size: .92rem; color: var(--ink-3); }
+  .sources li { margin-bottom: .35rem; word-break: break-word; }
+  .sources a { color: var(--ink-2); }
 
   .titre-suite { text-align: center; margin-bottom: 2.4rem; }
 

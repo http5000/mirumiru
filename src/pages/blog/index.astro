@@ -3,17 +3,34 @@ import { getCollection } from 'astro:content'
 import Base from '../../layouts/Base.astro'
 import EnteteePage from '../../components/EnteteePage.astro'
 import ArticleCarte from '../../components/ArticleCarte.astro'
+import { site } from '../../data/site'
 
 const articles = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )
 const [une, ...suite] = articles
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Le journal MiruMiru',
+  url: `${site.url}/blog`,
+  inLanguage: 'fr-FR',
+  publisher: { '@type': 'Organization', name: 'MiruMiru', url: site.url },
+  blogPost: articles.slice(0, 20).map((a) => ({
+    '@type': 'BlogPosting',
+    headline: a.data.title,
+    url: `${site.url}/blogs/infos/${a.id}`,
+    datePublished: a.data.pubDate.toISOString(),
+  })),
+}
 ---
 
 <Base
   title="Le journal MiruMiru : bubble tea, recettes et marché"
-  description="Recettes de bubble tea, tendances du marché français, conseils pour ouvrir un corner boba : le journal de MiruMiru, fournisseur de perles de fruits."
+  description="Marché du bubble tea en France et en Europe, tendances, saveurs, réglementation, recettes : le journal de MiruMiru, marque de popping boba."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
   <EnteteePage
     eyebrow="Le journal"
     titre="Tout ce qu’on apprend sur le bubble tea"
